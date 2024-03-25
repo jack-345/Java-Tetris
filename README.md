@@ -5,8 +5,8 @@
 
 ### Team Information:
 
-- Team Name:  
-- Students on team:
+- Team Name:  Team Tetris
+- Students on team: [Jack Ou, Nick DeYoung, Mingze Zhang]
 - Semester: Spring 2024
 
 
