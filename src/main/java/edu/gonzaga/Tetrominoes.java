@@ -16,6 +16,7 @@ public abstract class Tetrominoes {
     public void moveRight(){}
     public void moveDown(){}
     public Tetrominoes(Block[][] blockField){
+        gameListeners=new ArrayList<GameListener>();
         this.blockField=blockField;
     }
     public void setPosition(Point position) {
@@ -33,9 +34,15 @@ public abstract class Tetrominoes {
             p.setLocation(p.x,p.y+1);
             blockField[p.y][p.x].setFill(true);
         }
+        notifyGameListeners();
+    }
+    public void addToGameListeners(GameListener listener){
+        gameListeners.add(listener);
     }
     public void notifyGameListeners(){
-
+        for(GameListener listener:gameListeners){
+            listener.updateGame();
+        }
     }
     public void notifyGUIListeners(){
 

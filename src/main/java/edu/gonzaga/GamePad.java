@@ -21,7 +21,17 @@ public class GamePad implements GameListener{
     }
     @Override
     public void updateGame() {
-        tetroOnControl.step();
+        for(Block[] a:blocks){
+            for(Block b:a){
+                if(b.isFill)
+                    System.out.print('#');
+                else{
+                    System.out.print(' ');
+                }
+            }
+            System.out.println("");
+        }
+        System.out.println("--------------------");
     }
     public void spawnATetro(){
         tetroOnControl = new TetroI(blocks);
