@@ -1,3 +1,5 @@
+package edu.gonzaga;
+
 import java.util.ArrayList;
 
 public class Line {

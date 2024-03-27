@@ -1,3 +1,5 @@
+package edu.gonzaga;
+
 public class ControllerMoveDown extends Controller{
 
     public ControllerMoveDown(Tetrominoes tetro) {
