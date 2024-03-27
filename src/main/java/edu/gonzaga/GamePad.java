@@ -33,8 +33,8 @@ public class GamePad implements GameListener{
         }
         System.out.println("--------------------");
     }
-    public void spawnATetro(){
-        tetroOnControl = new TetroI(blocks);
+    public void spawnATetro(Point spawnPoint){
+        tetroOnControl = new TetroI(blocks,spawnPoint);
     }
     public void addATetro(Tetrominoes ter){
         tetroOnControl=ter;

@@ -15,9 +15,10 @@ public abstract class Tetrominoes {
     public  void moveLeft(){}
     public void moveRight(){}
     public void moveDown(){}
-    public Tetrominoes(Block[][] blockField){
+    public Tetrominoes(Block[][] blockField,Point spawnPoint){
         gameListeners=new ArrayList<GameListener>();
         this.blockField=blockField;
+        bias=spawnPoint;
     }
     public void setPosition(Point position) {
         this.position = position;
