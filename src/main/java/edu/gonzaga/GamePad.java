@@ -24,7 +24,13 @@ public class GamePad implements GameListener{
     public void spawnATetro(){
         tetroOnControl = new TetroI(blocks);
     }
+    public void addATetro(Tetrominoes ter){
+        tetroOnControl=ter;
+    }
     public Block[][] getBlocks(){
         return blocks;
+    }
+    public Boolean[] movingCheck(){
+        return new Boolean[]{true,true,true};
     }
 }
