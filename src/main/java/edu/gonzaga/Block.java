@@ -6,6 +6,10 @@ public class Block{
     private Point upperRight;
     private Point lowerRight;
     boolean isFill;
+    boolean isLocked;
+    public Block(Point uL){
+        upperLeft=uL;
+    }
     public Block(Point uL,Point lL,Point uR,Point lR){
         createBlock(uL,lL,uR,lR);
     }
