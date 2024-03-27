@@ -43,6 +43,30 @@ public class GamePad implements GameListener{
         return blocks;
     }
     public Boolean[] movingCheck(){
-        return new Boolean[]{true,true,true};
+        Boolean left=true;
+        Boolean down=true;
+        Boolean right=true;
+        for(Point p:tetroOnControl.getShape()){
+            if(p.x<=0){
+                left=false;
+            }
+            else if(blocks[p.y][p.x-1].isLocked()){
+                left=false;
+            }
+            if(p.x>=width){
+                right=false;
+            }
+            else if(blocks[p.y][p.x+1].isLocked()){
+                right=false;
+            }
+            if(p.y>=height){
+                down=false;
+            }
+            else if(blocks[p.y+1][p.x].isLocked()){
+                down=false;
+            }
+
+        }
+        return new Boolean[]{left,down,right};
     }
 }

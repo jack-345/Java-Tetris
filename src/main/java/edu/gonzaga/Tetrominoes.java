@@ -48,6 +48,9 @@ public abstract class Tetrominoes {
     public void notifyGUIListeners(){
 
     }
+    public ArrayList<Point> getShape(){
+        return shape;
+    }
     public void deleted(){
 
     }

@@ -32,6 +32,11 @@ public class Block{
     public void checkBlock(Tetrominoes ter){
 
     }
+
+    public boolean isLocked() {
+        return isLocked;
+    }
+
     public void updateBlock(Tetrominoes ter){
         checkBlock(ter);
     }
