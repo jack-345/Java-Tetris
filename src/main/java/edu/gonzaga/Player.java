@@ -1,3 +1,5 @@
+package edu.gonzaga;
+
 public class Player {
     int score;
     String name;

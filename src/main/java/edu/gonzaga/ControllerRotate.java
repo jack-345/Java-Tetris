@@ -1,3 +1,5 @@
+package edu.gonzaga;
+
 public class ControllerRotate extends Controller{
     public ControllerRotate(Tetrominoes tetro) {
         super(tetro);

@@ -1,3 +1,5 @@
+package edu.gonzaga;
+
 import java.awt.*;
 
 public class GamePad implements GameListener{

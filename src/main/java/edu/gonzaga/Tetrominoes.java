@@ -1,7 +1,10 @@
+package edu.gonzaga;
+
 import java.awt.*;
 import java.util.ArrayList;
 
 public abstract class Tetrominoes {
+    protected Point bias;
     protected int color;
     protected Point position;
     protected Block[][] blockField;

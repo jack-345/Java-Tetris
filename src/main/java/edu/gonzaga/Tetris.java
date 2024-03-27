@@ -1,7 +1,9 @@
+package edu.gonzaga;
+
 import java.io.IOException;
 import java.util.Timer;
 
-public class Tetris {
+public class  Tetris {
     public static void main(String[] args) throws IOException {
         Long timer= System.currentTimeMillis();
         GamePad gamePad=new GamePad(100,50);
