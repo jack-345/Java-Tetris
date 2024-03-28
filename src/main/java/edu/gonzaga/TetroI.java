@@ -11,9 +11,7 @@ public class TetroI extends Tetrominoes{
         shape.add(new Point(bias.x,1+bias.y));
         shape.add(new Point(bias.x,2+bias.y));
         shape.add(new Point(bias.x,3+bias.y));
-        for(Point p:shape){
-            blocks[p.y][p.x].setFill(true);
-        }
+
     }
 
     @Override
