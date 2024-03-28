@@ -7,8 +7,8 @@ public class Block{
     private Point lowerLeft;
     private Point upperRight;
     private Point lowerRight;
-    boolean isFill;
-    boolean isLocked;
+    private boolean isFill;
+    private boolean isLocked;
     public Block(Point uL){
         upperLeft=uL;
     }
@@ -36,7 +36,9 @@ public class Block{
     public boolean isLocked() {
         return isLocked;
     }
-
+    public void setLock(boolean lock){
+        isLocked=lock;
+    }
     public void updateBlock(Tetrominoes ter){
         checkBlock(ter);
     }

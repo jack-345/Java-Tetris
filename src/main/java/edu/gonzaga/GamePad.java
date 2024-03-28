@@ -23,7 +23,7 @@ public class GamePad implements GameListener{
     public void updateGame() {
         for(Block[] a:blocks){
             for(Block b:a){
-                if(b.isFill)
+                if(b.isFill())
                     System.out.print('#');
                 else{
                     System.out.print(' ');
@@ -35,6 +35,7 @@ public class GamePad implements GameListener{
     }
     public void spawnATetro(Point spawnPoint){
         tetroOnControl = new TetroI(blocks,spawnPoint);
+        tetroOnControl.addToGameListeners(this);
     }
     public void addATetro(Tetrominoes ter){
         tetroOnControl=ter;
@@ -53,13 +54,13 @@ public class GamePad implements GameListener{
             else if(blocks[p.y][p.x-1].isLocked()){
                 left=false;
             }
-            if(p.x>=width){
+            if(p.x>=width-1){
                 right=false;
             }
             else if(blocks[p.y][p.x+1].isLocked()){
                 right=false;
             }
-            if(p.y>=height){
+            if(p.y>=height-1){
                 down=false;
             }
             else if(blocks[p.y+1][p.x].isLocked()){

@@ -12,8 +12,26 @@ public abstract class Tetrominoes {
     protected ArrayList<GameListener> gameListeners;
     public void rotateClockwise(){}
     public void rotateCountClockwise(){}
-    public  void moveLeft(){}
-    public void moveRight(){}
+    public  void moveLeft(){
+        for(Point p:shape){
+            blockField[p.y][p.x].setFill(false);
+        }
+        for(Point p:shape){
+            p.setLocation(p.x-1,p.y);
+            blockField[p.y][p.x].setFill(true);
+        }
+        notifyGameListeners();
+    }
+    public void moveRight(){
+        for(Point p:shape){
+            blockField[p.y][p.x].setFill(false);
+        }
+        for(Point p:shape){
+            p.setLocation(p.x+1,p.y);
+            blockField[p.y][p.x].setFill(true);
+        }
+        notifyGameListeners();
+    }
     public void moveDown(){}
     public Tetrominoes(Block[][] blockField,Point spawnPoint){
         gameListeners=new ArrayList<GameListener>();
@@ -53,5 +71,10 @@ public abstract class Tetrominoes {
     }
     public void deleted(){
 
+    }
+    public void lock(){
+        for(Point p:shape){
+            blockField[p.y][p.x].setLock(true);
+        }
     }
 }
