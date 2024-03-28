@@ -4,17 +4,14 @@ import java.awt.*;
 import java.util.ArrayList;
 
 public class TetroI extends Tetrominoes{
-    public TetroI(Block[][] blocks){
-        super(blocks);
+    public TetroI(Block[][] blocks,Point spawnPoint){
+        super(blocks,spawnPoint);
         shape = new ArrayList<Point>();
-        shape.add(new Point(0,1));
-        shape.add(new Point(0,2));
-        shape.add(new Point(0,3));
-        shape.add(new Point(0,4));
-        blockField[1][0].setFill(true);
-        blockField[2][0].setFill(true);
-        blockField[3][0].setFill(true);
-        blockField[4][0].setFill(true);
+        shape.add(new Point(bias.x, bias.y));
+        shape.add(new Point(bias.x,1+bias.y));
+        shape.add(new Point(bias.x,2+bias.y));
+        shape.add(new Point(bias.x,3+bias.y));
+
     }
 
     @Override
