@@ -2,6 +2,7 @@ package edu.gonzaga;
 
 import java.awt.*;
 import java.io.IOException;
+import java.util.Random;
 
 public class TetrisGame {
     public TetrisGame(){
@@ -10,8 +11,15 @@ public class TetrisGame {
     public void startGame() throws IOException, InterruptedException {
         Long timer= System.currentTimeMillis();
         GamePad gamePad=new GamePad(10,20);
+        Random rand=new Random();
+        Tetrominoes ter=new TetroO(gamePad.getBlocks(),new Point(5,0));
         while (true) {
-            TetroO ter=new TetroO(gamePad.getBlocks(),new Point(5,0));
+            Integer wter= rand.nextInt(3);
+            switch (wter){
+                case 0:ter=new TetroO(gamePad.getBlocks(),new Point(5,0));break;
+                case 1:ter=new TetroL(gamePad.getBlocks(),new Point(5,0));break;
+                case 2:ter=new TetroI(gamePad.getBlocks(),new Point(5,0));break;
+            }
             gamePad.addATetro(ter);
             ter.addToGameListeners(gamePad);
             while (true) {
