@@ -1,7 +1,7 @@
 package edu.gonzaga;
 
 public class ControllerMoveLeft extends Controller{
-    public ControllerMoveLeft(Tetrominoes tetro) {
+    public ControllerMoveLeft(Block tetro) {
         super(tetro);
     }
     public void moveLeft(){

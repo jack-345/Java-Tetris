@@ -2,27 +2,27 @@ package edu.gonzaga;
 
 import java.awt.*;
 
-public class GamePad implements GameListener{
-    Block[][] blocks;
+public class GridPad implements GameListener{
+    GridBlock[][] gridBlocks;
     Line lines;
     Integer height;
     Integer width;
-    Tetrominoes tetroOnControl;
-    public GamePad(Integer width,Integer height){
+    Block tetroOnControl;
+    public GridPad(Integer width, Integer height){
         this.width=width;
         this.height=height;
-        blocks=new Block[height][width];
+        gridBlocks =new GridBlock[height][width];
         for(int i=0;i<height;i++){
             for(int j=0;j<width;j++){
-                blocks[i][j]=new Block(new Point(j,i));
+                gridBlocks[i][j]=new GridBlock(new Point(j,i));
             }
         }
 
     }
     @Override
     public void updateGame() {
-        for(Block[] a:blocks){
-            for(Block b:a){
+        for(GridBlock[] a: gridBlocks){
+            for(GridBlock b:a){
                 if(b.isFill())
                     System.out.print('#');
                 else{
@@ -33,16 +33,16 @@ public class GamePad implements GameListener{
         }
         System.out.println("--------------------");
     }
-    public Tetrominoes spawnATetro(Point spawnPoint){
-        tetroOnControl = new TetroI(blocks,spawnPoint);
+    public Block spawnATetro(Point spawnPoint){
+        tetroOnControl = new BlockI(gridBlocks,spawnPoint);
         tetroOnControl.addToGameListeners(this);
         return tetroOnControl;
     }
-    public void addATetro(Tetrominoes ter){
+    public void addATetro(Block ter){
         tetroOnControl=ter;
     }
-    public Block[][] getBlocks(){
-        return blocks;
+    public GridBlock[][] getBlocks(){
+        return gridBlocks;
     }
     public Boolean[] movingCheck(){
         Boolean left=true;
@@ -52,19 +52,19 @@ public class GamePad implements GameListener{
             if(p.x<=0){
                 left=false;
             }
-            else if(blocks[p.y][p.x-1].isLocked()){
+            else if(gridBlocks[p.y][p.x-1].isLocked()){
                 left=false;
             }
             if(p.x>=width-1){
                 right=false;
             }
-            else if(blocks[p.y][p.x+1].isLocked()){
+            else if(gridBlocks[p.y][p.x+1].isLocked()){
                 right=false;
             }
             if(p.y>=height-1){
                 down=false;
             }
-            else if(blocks[p.y+1][p.x].isLocked()){
+            else if(gridBlocks[p.y+1][p.x].isLocked()){
                 down=false;
             }
 

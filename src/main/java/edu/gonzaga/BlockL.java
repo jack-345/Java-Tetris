@@ -3,9 +3,9 @@ package edu.gonzaga;
 import java.awt.*;
 import java.util.ArrayList;
 
-public class TetroL extends Tetrominoes{
-    public TetroL(Block[][] blocks,Point spawnPoint){
-        super(blocks,spawnPoint);
+public class BlockL extends Block {
+    public BlockL(GridBlock[][] gridBlocks, Point spawnPoint){
+        super(gridBlocks,spawnPoint);
         shape = new ArrayList<Point>();
         shape.add(new Point(bias.x, bias.y));
         shape.add(new Point(bias.x,1+bias.y));

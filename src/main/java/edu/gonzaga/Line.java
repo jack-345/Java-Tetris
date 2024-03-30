@@ -3,9 +3,9 @@ package edu.gonzaga;
 import java.util.ArrayList;
 
 public class Line {
-    private ArrayList<Block> blocks;
-    public void addBlock(Block block){
-        blocks.add(block);
+    private ArrayList<GridBlock> gridBlocks;
+    public void addBlock(GridBlock gridBlock){
+        gridBlocks.add(gridBlock);
     }
     public void deleted(){
 

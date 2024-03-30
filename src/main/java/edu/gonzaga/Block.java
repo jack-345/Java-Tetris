@@ -1,45 +1,80 @@
 package edu.gonzaga;
 
 import java.awt.*;
+import java.util.ArrayList;
 
-public class Block{
-    private Point upperLeft;
-    private Point lowerLeft;
-    private Point upperRight;
-    private Point lowerRight;
-    private boolean isFill;
-    private boolean isLocked;
-    public Block(Point uL){
-        upperLeft=uL;
+public abstract class Block {
+    protected Point bias;
+    protected int color;
+    protected Point position;
+    protected GridBlock[][] gridBlockField;
+    protected ArrayList<Point> shape;
+    protected ArrayList<GameListener> gameListeners;
+    public void rotateClockwise(){}
+    public void rotateCountClockwise(){}
+    public  void moveLeft(){
+        for(Point p:shape){
+            gridBlockField[p.y][p.x].setFill(false);
+        }
+        for(Point p:shape){
+            p.setLocation(p.x-1,p.y);
+            gridBlockField[p.y][p.x].setFill(true);
+        }
+        notifyGameListeners();
     }
-    public Block(Point uL,Point lL,Point uR,Point lR){
-        createBlock(uL,lL,uR,lR);
+    public void moveRight(){
+        for(Point p:shape){
+            gridBlockField[p.y][p.x].setFill(false);
+        }
+        for(Point p:shape){
+            p.setLocation(p.x+1,p.y);
+            gridBlockField[p.y][p.x].setFill(true);
+        }
+        notifyGameListeners();
     }
-    public void createBlock(Point uL,Point lL,Point uR,Point lR){
-        upperLeft=uL;
-        lowerLeft=lL;
-        upperRight=uR;
-        lowerRight=lR;
+    public void moveDown(){}
+    public Block(GridBlock[][] gridBlockField, Point spawnPoint){
+        gameListeners=new ArrayList<GameListener>();
+        this.gridBlockField = gridBlockField;
+        bias=spawnPoint;
     }
+    public void setPosition(Point position) {
+        this.position = position;
+    }
+    public abstract Point getCenter();
+    public Point getPosition() {
+        return position;
+    }
+    public void step(){
+        for(Point p:shape){
+            gridBlockField[p.y][p.x].setFill(false);
+        }
+        for(Point p:shape){
+            p.setLocation(p.x,p.y+1);
+            gridBlockField[p.y][p.x].setFill(true);
+        }
+        notifyGameListeners();
+    }
+    public void addToGameListeners(GameListener listener){
+        gameListeners.add(listener);
+    }
+    public void notifyGameListeners(){
+        for(GameListener listener:gameListeners){
+            listener.updateGame();
+        }
+    }
+    public void notifyGUIListeners(){
 
-    public void setFill(boolean fill) {
-        isFill = fill;
     }
-
-    public boolean isFill() {
-        return isFill;
+    public ArrayList<Point> getShape(){
+        return shape;
     }
-    public void checkBlock(Tetrominoes ter){
+    public void deleted(){
 
     }
-
-    public boolean isLocked() {
-        return isLocked;
-    }
-    public void setLock(boolean lock){
-        isLocked=lock;
-    }
-    public void updateBlock(Tetrominoes ter){
-        checkBlock(ter);
+    public void lock(){
+        for(Point p:shape){
+            gridBlockField[p.y][p.x].setLock(true);
+        }
     }
 }

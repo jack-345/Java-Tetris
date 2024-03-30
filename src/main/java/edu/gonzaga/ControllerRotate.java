@@ -1,7 +1,7 @@
 package edu.gonzaga;
 
 public class ControllerRotate extends Controller{
-    public ControllerRotate(Tetrominoes tetro) {
+    public ControllerRotate(Block tetro) {
         super(tetro);
     }
     public void rotateClockwise(){

@@ -3,12 +3,12 @@ package edu.gonzaga;
 import java.util.ArrayList;
 
 public class Controller {
-    Tetrominoes tetro;
+    Block tetro;
     ArrayList<GUIListener> GUIListener;
-    public Controller(Tetrominoes tetro){
+    public Controller(Block tetro){
         this.tetro=tetro;
     }
-    public void changeTarget(Tetrominoes tetro){
+    public void changeTarget(Block tetro){
         this.tetro=tetro;
     }
     public void notifyListeners(){
