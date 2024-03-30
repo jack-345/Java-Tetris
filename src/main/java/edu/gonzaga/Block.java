@@ -4,11 +4,14 @@ import java.awt.*;
 import java.util.ArrayList;
 
 public abstract class Block {
+    //This bias means spawn location.
     protected Point bias;
     protected int color;
-    protected Point position;
+    //This stores grid information. I know this is a bit of a performance drain, so I'll modify it in the future.
     protected GridBlock[][] gridBlockField;
+    //Each block consists of 4 gridBlocks, and this array is used to hold information about the gridBlocks used to form the blok.
     protected ArrayList<Point> shape;
+    //The gameListener is used to update game information such as display and score. I only used it here to update the display.
     protected ArrayList<GameListener> gameListeners;
     public void rotateClockwise(){}
     public void rotateCountClockwise(){}
@@ -33,18 +36,13 @@ public abstract class Block {
         notifyGameListeners();
     }
     public void moveDown(){}
+    //constructor, enter the grid and birth point to create a new block.
     public Block(GridBlock[][] gridBlockField, Point spawnPoint){
         gameListeners=new ArrayList<GameListener>();
         this.gridBlockField = gridBlockField;
         bias=spawnPoint;
     }
-    public void setPosition(Point position) {
-        this.position = position;
-    }
-    public abstract Point getCenter();
-    public Point getPosition() {
-        return position;
-    }
+    //Step means to move down. The listener is notified every time it moves to update the display.
     public void step(){
         for(Point p:shape){
             gridBlockField[p.y][p.x].setFill(false);
@@ -72,6 +70,7 @@ public abstract class Block {
     public void deleted(){
 
     }
+    //The lock state means that whenever a square is locked, that means it stops moving. One version means touching other squares or touching the bottom.
     public void lock(){
         for(Point p:shape){
             gridBlockField[p.y][p.x].setLock(true);

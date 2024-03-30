@@ -19,6 +19,7 @@ public class GridPad implements GameListener{
         }
 
     }
+    //Export the game interface on the command line.
     @Override
     public void updateGame() {
         for(GridBlock[] a: gridBlocks){
@@ -33,17 +34,20 @@ public class GridPad implements GameListener{
         }
         System.out.println("--------------------");
     }
-    public Block spawnATetro(Point spawnPoint){
+    public Block spawnABlock(Point spawnPoint){
         tetroOnControl = new BlockI(gridBlocks,spawnPoint);
         tetroOnControl.addToGameListeners(this);
         return tetroOnControl;
     }
-    public void addATetro(Block ter){
+    public void addABlock(Block ter){
         tetroOnControl=ter;
     }
-    public GridBlock[][] getBlocks(){
+    public GridBlock[][] getGridBlocks(){
         return gridBlocks;
     }
+    //This movingCheck is used to detect the direction in which the square can move.
+    //It is implemented by returning an array of 3 booleans. The array consists of {left,down,right}.
+    //If the square can move down, but not left or right, then the value of the boolean array is {false,true,false}.
     public Boolean[] movingCheck(){
         Boolean left=true;
         Boolean down=true;
