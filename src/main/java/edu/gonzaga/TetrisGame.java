@@ -30,6 +30,8 @@ public class TetrisGame {
         grid.setSize(200, 400);
         application.setSize(240, 440);
         application.setVisible(true);
+        controller = new KeyboardController(application, gridPad.getBlockOnControl(),gridPad);
+        controller.listenForKeyPressed();
         //Setting up a Timer
         swingTimer = new Timer(500, ev -> {
         });
@@ -65,9 +67,8 @@ public class TetrisGame {
                         ter = new BlockJ(gridPad.getGridBlocks(), new Point(spawnX, spawnY));
                         break;
                 }
-
+                controller.changeTarget(ter);
                 ter.rotate(rotate);
-
                 gridPad.addABlock(ter);
                 ter.addToGameListeners(gridPad);
                 swingTimer = new Timer(runTime, e -> {
@@ -77,10 +78,6 @@ public class TetrisGame {
                         ter.lock();
                         swingTimer.stop();
                     }
-
-                    controller = new KeyboardController(application, ter);
-                    controller.listenForKeyPressed();
-
                 });
                 swingTimer.start();
             }

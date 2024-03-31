@@ -70,7 +70,7 @@ public abstract class Block {
         }
         notifyGameListeners();
     }
-    public void moveDown(){}
+
     //constructor, enter the grid and birth point to create a new block.
     public Block(GridBlock[][] gridBlockField, Point spawnPoint, Color color){
         gameListeners=new ArrayList<GameListener>();

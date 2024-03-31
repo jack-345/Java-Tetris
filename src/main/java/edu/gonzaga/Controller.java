@@ -5,13 +5,15 @@ import java.awt.*;
 import java.util.ArrayList;
 
 public abstract class Controller {
-    protected Block tetro;
+    protected Block controlBlock;
+    protected GridPad gridPad;
     ArrayList<GUIListener> GUIListener;
-    public Controller(Block tetro){
-        this.tetro=tetro;
+    public Controller(Block tetro,GridPad gridPad){
+        this.controlBlock=tetro;
+        this.gridPad=gridPad;
     }
     public void changeTarget(Block tetro){
-        this.tetro=tetro;
+        this.controlBlock=tetro;
     }
 
     public void listenForKeyPressed() {

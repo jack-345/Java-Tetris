@@ -5,11 +5,10 @@ import java.awt.event.KeyListener;
 
 public class KeyboardController extends Controller {
     private JFrame frame;
-    private Block controlBlock;
-    public KeyboardController(JFrame frame, Block block){
-        super(null);
+    public KeyboardController(JFrame frame, Block block, GridPad gridPad){
+        super(block,gridPad);
         this.frame = frame;
-        this.controlBlock = block;
+        controlBlock = block;
     }
 
     public void moveLeft(){
@@ -21,9 +20,9 @@ public class KeyboardController extends Controller {
     }
 
     public void moveDown(){
-        controlBlock.moveDown();
+        controlBlock.step();
     }
-
+    public void rotate(int direction){controlBlock.rotate(direction);}
     public void listenForKeyPressed(){
         frame.addKeyListener(new KeyListener() {
 
@@ -36,13 +35,22 @@ public class KeyboardController extends Controller {
                 int keyCode = e.getKeyCode();
                 // Check which key is pressed and call corresponding methods
                 if (keyCode == KeyEvent.VK_LEFT || keyCode == KeyEvent.VK_A) {
-                    moveLeft();
+                    if(gridPad.movingCheck(controlBlock)[0]) {
+                        moveLeft();
+                    }
                 } else if (keyCode == KeyEvent.VK_RIGHT || keyCode == KeyEvent.VK_D) {
-                    moveRight();
-                } else if (keyCode == KeyEvent.VK_UP || keyCode == KeyEvent.VK_W) {
-                    //rotate();
-                } else if (keyCode == KeyEvent.VK_DOWN || keyCode == KeyEvent.VK_S) {
-                    moveDown();
+                    if(gridPad.movingCheck(controlBlock)[2]) {
+                        moveRight();
+                    }
+                } else if (keyCode == KeyEvent.VK_A || keyCode == KeyEvent.VK_K) {
+                    rotate(-1);
+                } else if (keyCode == KeyEvent.VK_D || keyCode == KeyEvent.VK_L){
+                    rotate(1);
+                }
+                else if (keyCode == KeyEvent.VK_DOWN || keyCode == KeyEvent.VK_S) {
+                    if(gridPad.movingCheck(controlBlock)[1]) {
+                        moveDown();
+                    }
                 }
             }
 
