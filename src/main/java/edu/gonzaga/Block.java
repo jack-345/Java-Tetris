@@ -18,6 +18,7 @@ public abstract class Block {
         for (Point p : shape) {
             gridBlockField[p.y][p.x].setFill(false);
             gridBlockField[p.y][p.x].setColor(new Color(255, 255, 255));
+
         }
         if(direction>0) {
             for (int r = 0; r < direction; r++) {
