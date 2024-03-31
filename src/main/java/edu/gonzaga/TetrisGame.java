@@ -7,7 +7,8 @@ import java.util.Random;
 
 public class TetrisGame {
     private Timer swingTimer;
-
+    private Controller controller;
+    JFrame application = new JFrame(); // creates a new JFrame
     public TetrisGame() {
 
     }
@@ -23,7 +24,6 @@ public class TetrisGame {
         GridBlockLayer grid = new GridBlockLayer(gridPad);
         //GUI listener can update the GUI interface.
         gridPad.addGUIListener(grid);
-        JFrame application = new JFrame(); // creates a new JFrame
         application.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         application.add(grid);
         //One can try replacing these numbers with variables.
@@ -77,6 +77,9 @@ public class TetrisGame {
                         ter.lock();
                         swingTimer.stop();
                     }
+
+                    controller = new KeyboardController(application, ter);
+                    controller.listenForKeyPressed();
 
                 });
                 swingTimer.start();

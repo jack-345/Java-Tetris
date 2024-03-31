@@ -1,9 +1,11 @@
 package edu.gonzaga;
 
+import javax.swing.*;
+import java.awt.*;
 import java.util.ArrayList;
 
-public class Controller {
-    Block tetro;
+public abstract class Controller {
+    protected Block tetro;
     ArrayList<GUIListener> GUIListener;
     public Controller(Block tetro){
         this.tetro=tetro;
@@ -11,7 +13,7 @@ public class Controller {
     public void changeTarget(Block tetro){
         this.tetro=tetro;
     }
-    public void notifyListeners(){
 
+    public void listenForKeyPressed() {
     }
 }
