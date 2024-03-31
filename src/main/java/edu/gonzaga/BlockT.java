@@ -10,7 +10,7 @@ public class BlockT extends Block{
     }
 
     public BlockT(GridBlock[][] gridBlockField, Point spawnPoint) {
-        super(gridBlockField, spawnPoint);
+        super(gridBlockField, spawnPoint, new Color(128, 0, 128));
         shape = new ArrayList<Point>();
         shape.add(new Point(bias.x, bias.y));
         shape.add(new Point(1+bias.x,bias.y));

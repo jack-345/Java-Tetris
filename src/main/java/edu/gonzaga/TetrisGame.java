@@ -37,9 +37,6 @@ public class TetrisGame {
             Integer wBlock = rand.nextInt(8);
             Integer spawnX = rand.nextInt(16)+2;
             Integer spawnY=1;
-            Integer colorR = rand.nextInt(256);
-            Integer colorG = rand.nextInt(256);
-            Integer colorB = rand.nextInt(256);
             Integer rotate = rand.nextInt(9)-4;
             //If the Timer doesn't end, i.e. the squares don't collide, then don't execute the following statement.
             if (!swingTimer.isRunning()) {
@@ -68,9 +65,9 @@ public class TetrisGame {
                         ter = new BlockJ(gridPad.getGridBlocks(), new Point(spawnX, spawnY));
                         break;
                 }
-                ter.setColor(new Color(colorR,colorG,colorB));
+
                 ter.rotate(rotate);
-               // Long timer = System.currentTimeMillis();
+
                 gridPad.addABlock(ter);
                 ter.addToGameListeners(gridPad);
                 swingTimer = new Timer(runTime, e -> {

@@ -72,10 +72,11 @@ public abstract class Block {
     }
     public void moveDown(){}
     //constructor, enter the grid and birth point to create a new block.
-    public Block(GridBlock[][] gridBlockField, Point spawnPoint){
+    public Block(GridBlock[][] gridBlockField, Point spawnPoint, Color color){
         gameListeners=new ArrayList<GameListener>();
         this.gridBlockField = gridBlockField;
         bias=spawnPoint;
+        this.color = color;
     }
     //Step means to move down. The listener is notified every time it moves to update the display.
     public void step(){
@@ -97,10 +98,6 @@ public abstract class Block {
         for(GameListener listener:gameListeners){
             listener.updateGame();
         }
-    }
-
-    public void setColor(Color color) {
-        this.color = color;
     }
 
     public Color getColor() {
