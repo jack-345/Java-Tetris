@@ -11,7 +11,7 @@ import edu.gonzaga.Tetris;
 
 public class MainMenuTest {
     
-    public static void main(String args[]) throws IOException, InterruptedException {
+    public static void main(String[] args) throws IOException, InterruptedException {
         JFrame mainMenuFrame = new JFrame("Main Menu");
         mainMenuFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         mainMenuFrame.setSize(770, 820);
@@ -23,6 +23,7 @@ public class MainMenuTest {
         playButton.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 TetrisGame game = new TetrisGame();
+                //opens unresponsive/blank window of TetrisGame
                 try {
                     game.startGame();
                 } catch (IOException e1) {
