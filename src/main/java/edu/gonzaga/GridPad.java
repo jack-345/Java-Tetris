@@ -114,27 +114,7 @@ public class GridPad implements GameListener{
     }
     @Override
     public void updateGame() {
-        /*for(GridBlock[] a: gridBlocks){
-            for(GridBlock b:a){
-                if(b.isFill())
-                    System.out.print('#');
-                else{
-                    System.out.print(' ');
-                }
-            }
-            System.out.println("");
-        }
-        System.out.println("--------------------");
-
-         */
-        for(GridBlock[] a: gridBlocks){
-            for(GridBlock b:a){
-
-                }
-            }
-
-
-        //System.out.println("Update");
+     
         notifyGUIListeners();
     }
 
