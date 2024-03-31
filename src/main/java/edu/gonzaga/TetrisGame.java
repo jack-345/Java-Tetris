@@ -33,6 +33,7 @@ public class TetrisGame {
             if (!swingTimer.isRunning()) {
                 Block ter;
                 Integer wter = rand.nextInt(3);
+                System.out.println(wter);
                 switch (wter) {
                     case 0:
                         ter = new BlockO(gridPad.getGridBlocks(), new Point(5, 0));
