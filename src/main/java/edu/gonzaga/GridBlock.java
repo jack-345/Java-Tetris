@@ -3,7 +3,7 @@ package edu.gonzaga;
 import java.awt.*;
 
 public class GridBlock {
-    private int color;
+    private Color color;
     private Point upperLeft;
     private Point lowerLeft;
     private Point upperRight;
@@ -15,6 +15,7 @@ public class GridBlock {
     //Create a new block by typing in the coordinates of the upper left corner of the gridblock, this is reserved for the gui and is not currently used, it can be any value.
     public GridBlock(Point uL){
         upperLeft=uL;
+        color = new Color(255,255,255);
     }
 
     public GridBlock(Point uL, Point lL, Point uR, Point lR){
@@ -36,6 +37,14 @@ public class GridBlock {
     }
     public void checkBlock(Block ter){
 
+    }
+
+    public Color getColor() {
+        return color;
+    }
+
+    public void setColor(Color color) {
+        this.color = color;
     }
 
     public boolean isLocked() {

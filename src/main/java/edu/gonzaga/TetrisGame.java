@@ -32,6 +32,9 @@ public class TetrisGame {
         while (true) {
             Integer wBlock = rand.nextInt(3);
             Integer spawnX = rand.nextInt(18);
+            Integer colorR = rand.nextInt(256);
+            Integer colorG = rand.nextInt(256);
+            Integer colorB = rand.nextInt(256);
             if (!swingTimer.isRunning()) {
                 Block ter;
                 switch (wBlock) {
@@ -46,9 +49,9 @@ public class TetrisGame {
                         break;
                     default:
                         ter = new BlockO(gridPad.getGridBlocks(), new Point(spawnX, 0));
-                        System.out.println("De");
                         break;
                 }
+                ter.setColor(new Color(colorR,colorG,colorB));
                 Long timer = System.currentTimeMillis();
                 gridPad.addABlock(ter);
                 ter.addToGameListeners(gridPad);

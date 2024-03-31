@@ -1,7 +1,7 @@
 package edu.gonzaga;
 
 import javax.swing.*;
-import java.awt.Graphics;
+import java.awt.*;
 
 public class GridBlockLayer extends JPanel implements GUIListener{
     private GridPad gridPad;
@@ -22,10 +22,12 @@ public class GridBlockLayer extends JPanel implements GUIListener{
         {
             for(int j=0;j<gridPad.getWidth();j++){
                 if(gridPad.getBlock(j,i).isFill()){
+                    g.setColor(gridPad.getBlock(j,i).getColor());
                     g.fillRect(j*10, i*10, 10, 10);
+                    g.setColor(new Color(255,255,255));
                 }
                 else {
-                    g.drawRect(j * 10, i * 10, 10, 10);
+                    //g.drawRect(j * 10, i * 10, 10, 10);
                 }
             }
         }

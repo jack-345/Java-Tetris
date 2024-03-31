@@ -6,7 +6,7 @@ import java.util.ArrayList;
 public abstract class Block {
     //This bias means spawn location.
     protected Point bias;
-    protected int color;
+    protected Color color;
     //This stores grid information. I know this is a bit of a performance drain, so I'll modify it in the future.
     protected GridBlock[][] gridBlockField;
     //Each block consists of 4 gridBlocks, and this array is used to hold information about the gridBlocks used to form the blok.
@@ -46,10 +46,12 @@ public abstract class Block {
     public void step(){
         for(Point p:shape){
             gridBlockField[p.y][p.x].setFill(false);
+            gridBlockField[p.y][p.x].setColor(new Color(255,255,255));
         }
         for(Point p:shape){
             p.setLocation(p.x,p.y+1);
             gridBlockField[p.y][p.x].setFill(true);
+            gridBlockField[p.y][p.x].setColor(color);
         }
         notifyGameListeners();
     }
@@ -61,6 +63,15 @@ public abstract class Block {
             listener.updateGame();
         }
     }
+
+    public void setColor(Color color) {
+        this.color = color;
+    }
+
+    public Color getColor() {
+        return color;
+    }
+
     public void notifyGUIListeners(){
 
     }
