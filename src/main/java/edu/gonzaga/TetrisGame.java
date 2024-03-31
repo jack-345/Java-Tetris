@@ -17,32 +17,43 @@ public class TetrisGame {
         //set a timer
         Integer runTime = 100;
         //Create a gridPad
-        GridPad gridPad = new GridPad(20, 40);
+        GridPad gridPad = new GridPad(10, 40);
         Random rand = new Random();
         rand.setSeed(System.currentTimeMillis());
         //GridBlockLayer is a JPanel
         GridBlockLayer grid = new GridBlockLayer(gridPad);
+        grid.setSize(100, 400);
         //GUI listener can update the GUI interface.
         gridPad.addGUIListener(grid);
+
+
         application.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        application.setLayout(new BorderLayout());
         application.add(grid);
+
         //One can try replacing these numbers with variables.
-        grid.setSize(200, 400);
-        application.setSize(240, 440);
+        application.setSize(100, 440);
         application.setVisible(true);
         controller = new KeyboardController(application, gridPad);
         controller.listenForKeyPressed();
+
+        /*
+        trying to center the grid, not currently working
+        int x = (application.getWidth() - grid.getWidth()) / 2;
+        int y = (application.getHeight() - grid.getHeight()) / 2;
+        grid.setLocation(x, y);
+        */
+
         //Setting up a Timer
         swingTimer = new Timer(500, ev -> {
         });
         while (true) {
             Integer wBlock = rand.nextInt(7);
-            Integer spawnX = rand.nextInt(16)+2;
+            Integer spawnX = 4;
             Integer spawnY=1;
-            Integer rotate = rand.nextInt(9)-4;
             //If the Timer doesn't end, i.e. the squares don't collide, then don't execute the following statement.
             if (!swingTimer.isRunning()) {
-                System.out.printf("What Block: %d, SpawnX: %d, Rotate: %d\n",wBlock,spawnX,rotate);
+                System.out.printf("What Block: %d\n",wBlock);
                 Block ter;
                 switch (wBlock) {
                     case 0:
@@ -68,7 +79,6 @@ public class TetrisGame {
                         break;
                 }
                 controller.changeTarget(ter);
-                ter.rotate(rotate);
                 gridPad.addABlock(ter);
                 ter.addToGameListeners(gridPad);
                 swingTimer = new Timer(runTime, e -> {

@@ -14,8 +14,8 @@ public class GridBlock {
     private boolean isLocked;
     //Create a new block by typing in the coordinates of the upper left corner of the gridblock, this is reserved for the gui and is not currently used, it can be any value.
     public GridBlock(Point uL){
-        upperLeft=uL;
-        color = new Color(255,255,255);
+        this.upperLeft = uL;
+        this.color = new Color(255, 255, 255);
     }
 
     public GridBlock(Point uL, Point lL, Point uR, Point lR){

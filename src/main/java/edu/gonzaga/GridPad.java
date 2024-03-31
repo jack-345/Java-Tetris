@@ -30,7 +30,7 @@ public class GridPad implements GameListener{
         return blockOnControl;
     }
     public void addABlock(Block ter){
-        blockOnControl =ter;
+        blockOnControl = ter;
     }
     public GridBlock[][] getGridBlocks(){
         return gridBlocks;
