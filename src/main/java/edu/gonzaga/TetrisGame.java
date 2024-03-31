@@ -15,10 +15,10 @@ public class TetrisGame {
     public void startGame() throws IOException, InterruptedException {
         //set a timer
 
-        Integer runTime = 200;
+        Integer runTime = 100;
         GridPad gridPad = new GridPad(20, 40);
         Random rand = new Random();
-
+        rand.setSeed(System.currentTimeMillis());
         GridBlockLayer grid = new GridBlockLayer(gridPad);
         gridPad.addGUIListener(grid);
         JFrame application = new JFrame(); // creates a new JFrame
@@ -30,22 +30,23 @@ public class TetrisGame {
         swingTimer = new Timer(500, ev -> {
         });
         while (true) {
+            Integer wBlock = rand.nextInt(3);
+            Integer spawnX = rand.nextInt(18);
             if (!swingTimer.isRunning()) {
                 Block ter;
-                Integer wter = rand.nextInt(3);
-                System.out.println(wter);
-                switch (wter) {
+                switch (wBlock) {
                     case 0:
-                        ter = new BlockO(gridPad.getGridBlocks(), new Point(5, 0));
+                        ter = new BlockO(gridPad.getGridBlocks(), new Point(spawnX, 0));
                         break;
                     case 1:
-                        ter = new BlockL(gridPad.getGridBlocks(), new Point(5, 0));
+                        ter = new BlockL(gridPad.getGridBlocks(), new Point(spawnX, 0));
                         break;
                     case 2:
-                        ter = new BlockI(gridPad.getGridBlocks(), new Point(5, 0));
+                        ter = new BlockI(gridPad.getGridBlocks(), new Point(spawnX, 0));
                         break;
                     default:
-                        ter = new BlockO(gridPad.getGridBlocks(), new Point(5, 0));
+                        ter = new BlockO(gridPad.getGridBlocks(), new Point(spawnX, 0));
+                        System.out.println("De");
                         break;
                 }
                 Long timer = System.currentTimeMillis();
