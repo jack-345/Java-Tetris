@@ -13,8 +13,42 @@ public abstract class Block {
     protected ArrayList<Point> shape;
     //The gameListener is used to update game information such as display and score. I only used it here to update the display.
     protected ArrayList<GameListener> gameListeners;
-    public void rotateClockwise(){}
-    public void rotateCountClockwise(){}
+    public abstract void rotate(int direction);
+    public void rotate(int direction,Point center){
+        for (Point p : shape) {
+            gridBlockField[p.y][p.x].setFill(false);
+            gridBlockField[p.y][p.x].setColor(new Color(255, 255, 255)); // 假设这是背景色
+        }
+        if(direction>0) {
+            for (int r = 0; r < direction; r++) {
+                for (int i = 0; i < shape.size(); i++) {
+                    Point p = shape.get(i);
+                    int x = center.x + center.y - p.y;
+                    int y = center.y - center.x + p.x;
+                    shape.set(i, new Point(x, y));
+                }
+            }
+        }
+        else if(direction<0) {
+            for (int r = 0; r < Math.abs(direction); r++) {
+                for (int i = 0; i < shape.size(); i++) {
+                    Point p = shape.get(i);
+                    int x = center.x - center.y + p.y;
+                    int y = center.y + center.x - p.x;
+                    shape.set(i, new Point(x, y));
+                }
+            }
+        }
+        else {
+            return;
+        }
+        for (Point p : shape) {
+            gridBlockField[p.y][p.x].setFill(true);
+            gridBlockField[p.y][p.x].setColor(color);
+        }
+        notifyGameListeners();
+    }
+    //public void rotateCountClockwise(){}
     public  void moveLeft(){
         for(Point p:shape){
             gridBlockField[p.y][p.x].setFill(false);

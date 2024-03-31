@@ -31,36 +31,40 @@ public class TetrisGame {
         });
         while (true) {
             Integer wBlock = rand.nextInt(8);
-            Integer spawnX = rand.nextInt(18);
+            Integer spawnX = rand.nextInt(17)+1;
+            Integer spawnY=1;
             Integer colorR = rand.nextInt(256);
             Integer colorG = rand.nextInt(256);
             Integer colorB = rand.nextInt(256);
+            Integer rotate = rand.nextInt(9)-4;
             if (!swingTimer.isRunning()) {
+                System.out.printf("What Block: %d, SpawnX: %d, Rotate: %d\n",wBlock,spawnX,rotate);
                 Block ter;
                 switch (wBlock) {
                     case 0:
-                        ter = new BlockO(gridPad.getGridBlocks(), new Point(spawnX, 0));
+                        ter = new BlockO(gridPad.getGridBlocks(), new Point(spawnX, spawnY));
                         break;
                     case 1:
-                        ter = new BlockL(gridPad.getGridBlocks(), new Point(spawnX, 0));
+                        ter = new BlockL(gridPad.getGridBlocks(), new Point(spawnX, spawnY));
                         break;
                     case 2:
-                        ter = new BlockI(gridPad.getGridBlocks(), new Point(spawnX, 0));
+                        ter = new BlockI(gridPad.getGridBlocks(), new Point(spawnX, spawnY));
                         break;
                     case 3:
-                        ter = new BlockS(gridPad.getGridBlocks(), new Point(spawnX, 0));
+                        ter = new BlockS(gridPad.getGridBlocks(), new Point(spawnX, spawnY));
                         break;
                     case 4:
-                        ter = new BlockZ(gridPad.getGridBlocks(), new Point(spawnX, 0));
+                        ter = new BlockZ(gridPad.getGridBlocks(), new Point(spawnX, spawnY));
                         break;
                     case 5:
-                        ter = new BlockT(gridPad.getGridBlocks(), new Point(spawnX, 0));
+                        ter = new BlockT(gridPad.getGridBlocks(), new Point(spawnX, spawnY));
                         break;
                     default:
-                        ter = new BlockJ(gridPad.getGridBlocks(), new Point(spawnX, 0));
+                        ter = new BlockJ(gridPad.getGridBlocks(), new Point(spawnX, spawnY));
                         break;
                 }
                 ter.setColor(new Color(colorR,colorG,colorB));
+                ter.rotate(rotate);
                // Long timer = System.currentTimeMillis();
                 gridPad.addABlock(ter);
                 ter.addToGameListeners(gridPad);
@@ -69,7 +73,6 @@ public class TetrisGame {
                         ter.step();
                     } else {
                         ter.lock();
-                        System.out.println("stop");
                         swingTimer.stop();
                     }
 

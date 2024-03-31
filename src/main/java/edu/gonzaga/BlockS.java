@@ -4,6 +4,11 @@ import java.awt.*;
 import java.util.ArrayList;
 
 public class BlockS extends Block{
+    @Override
+    public void rotate(int direction) {
+        super.rotate(direction,shape.get(0));
+    }
+
     public BlockS(GridBlock[][] gridBlockField, Point spawnPoint) {
         super(gridBlockField, spawnPoint);
         shape = new ArrayList<Point>();
