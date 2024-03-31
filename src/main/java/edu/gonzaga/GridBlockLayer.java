@@ -10,12 +10,14 @@ import java.io.IOException;
 public class GridBlockLayer extends JPanel implements GUIListener{
     private GridPad gridPad;
     private BufferedImage blockImage;
+    private BufferedImage backGroundImage;
     public GridBlockLayer(GridPad gridPad){
         super();
         this.gridPad=gridPad;
         setVisible(true);
         try {
             blockImage = ImageIO.read(new File("src/main/java/edu/gonzaga/SourceImg/gridBlock.png"));
+            backGroundImage=ImageIO.read(new File("src/main/java/edu/gonzaga/SourceImg/backGround.png"));
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -36,7 +38,7 @@ public class GridBlockLayer extends JPanel implements GUIListener{
                     g.drawImage(coloredImage, j * 10, i * 10, 10, 10, null);
                 }
                 else {
-                    //g.drawRect(j * 10, i * 10, 10, 10);
+                    g.drawImage(backGroundImage, j * 10, i * 10, 10, 10, null);
                 }
             }
         }

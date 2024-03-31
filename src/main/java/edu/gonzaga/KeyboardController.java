@@ -34,20 +34,20 @@ public class KeyboardController extends Controller {
                 int keyCode = e.getKeyCode();
                 // Check which key is pressed and call corresponding methods
                 if (keyCode == KeyEvent.VK_LEFT || keyCode == KeyEvent.VK_A) {
-                    if(gridPad.movingCheck(controlBlock)[0]) {
+                    if(gridPad.movingCheck()[0]) {
                         moveLeft();
                     }
                 } else if (keyCode == KeyEvent.VK_RIGHT || keyCode == KeyEvent.VK_D) {
-                    if(gridPad.movingCheck(controlBlock)[2]) {
+                    if(gridPad.movingCheck()[2]) {
                         moveRight();
                     }
-                } else if (keyCode == KeyEvent.VK_A || keyCode == KeyEvent.VK_K) {
+                } else if (keyCode == KeyEvent.VK_Z || keyCode == KeyEvent.VK_K) {
                     rotate(-1);
-                } else if (keyCode == KeyEvent.VK_D || keyCode == KeyEvent.VK_L){
+                } else if (keyCode == KeyEvent.VK_X || keyCode == KeyEvent.VK_L){
                     rotate(1);
                 }
                 else if (keyCode == KeyEvent.VK_DOWN || keyCode == KeyEvent.VK_S) {
-                    if(gridPad.movingCheck(controlBlock)[1]) {
+                    if(gridPad.movingCheck()[1]) {
                         moveDown();
                     }
                 }

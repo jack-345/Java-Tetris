@@ -53,20 +53,24 @@ public abstract class Block {
     public  void moveLeft(){
         for(Point p:shape){
             gridBlockField[p.y][p.x].setFill(false);
+            gridBlockField[p.y][p.x].setColor(new Color(255, 255, 255));
         }
         for(Point p:shape){
             p.setLocation(p.x-1,p.y);
             gridBlockField[p.y][p.x].setFill(true);
+            gridBlockField[p.y][p.x].setColor(color);
         }
         notifyGameListeners();
     }
     public void moveRight(){
         for(Point p:shape){
             gridBlockField[p.y][p.x].setFill(false);
+            gridBlockField[p.y][p.x].setColor(new Color(255, 255, 255));
         }
         for(Point p:shape){
             p.setLocation(p.x+1,p.y);
             gridBlockField[p.y][p.x].setFill(true);
+            gridBlockField[p.y][p.x].setColor(color);
         }
         notifyGameListeners();
     }
