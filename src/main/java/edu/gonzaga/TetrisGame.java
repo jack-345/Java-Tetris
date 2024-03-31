@@ -30,7 +30,7 @@ public class TetrisGame {
         swingTimer = new Timer(500, ev -> {
         });
         while (true) {
-            Integer wBlock = rand.nextInt(3);
+            Integer wBlock = rand.nextInt(8);
             Integer spawnX = rand.nextInt(18);
             Integer colorR = rand.nextInt(256);
             Integer colorG = rand.nextInt(256);
@@ -47,12 +47,21 @@ public class TetrisGame {
                     case 2:
                         ter = new BlockI(gridPad.getGridBlocks(), new Point(spawnX, 0));
                         break;
+                    case 3:
+                        ter = new BlockS(gridPad.getGridBlocks(), new Point(spawnX, 0));
+                        break;
+                    case 4:
+                        ter = new BlockZ(gridPad.getGridBlocks(), new Point(spawnX, 0));
+                        break;
+                    case 5:
+                        ter = new BlockT(gridPad.getGridBlocks(), new Point(spawnX, 0));
+                        break;
                     default:
-                        ter = new BlockO(gridPad.getGridBlocks(), new Point(spawnX, 0));
+                        ter = new BlockJ(gridPad.getGridBlocks(), new Point(spawnX, 0));
                         break;
                 }
                 ter.setColor(new Color(colorR,colorG,colorB));
-                Long timer = System.currentTimeMillis();
+               // Long timer = System.currentTimeMillis();
                 gridPad.addABlock(ter);
                 ter.addToGameListeners(gridPad);
                 swingTimer = new Timer(runTime, e -> {
