@@ -14,8 +14,4 @@ public class BlockL extends Block {
 
     }
 
-    @Override
-    public Point getCenter() {
-        return null;
-    }
 }

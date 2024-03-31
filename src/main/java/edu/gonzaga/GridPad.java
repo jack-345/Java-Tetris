@@ -1,6 +1,7 @@
 package edu.gonzaga;
 
 import java.awt.*;
+import java.util.ArrayList;
 
 public class GridPad implements GameListener{
     GridBlock[][] gridBlocks;
@@ -8,10 +9,12 @@ public class GridPad implements GameListener{
     Integer height;
     Integer width;
     Block tetroOnControl;
+    ArrayList<GUIListener> guiListeners;
     public GridPad(Integer width, Integer height){
         this.width=width;
         this.height=height;
         gridBlocks =new GridBlock[height][width];
+        guiListeners=new ArrayList<GUIListener>();
         for(int i=0;i<height;i++){
             for(int j=0;j<width;j++){
                 gridBlocks[i][j]=new GridBlock(new Point(j,i));
@@ -20,20 +23,7 @@ public class GridPad implements GameListener{
 
     }
     //Export the game interface on the command line.
-    @Override
-    public void updateGame() {
-        for(GridBlock[] a: gridBlocks){
-            for(GridBlock b:a){
-                if(b.isFill())
-                    System.out.print('#');
-                else{
-                    System.out.print(' ');
-                }
-            }
-            System.out.println("");
-        }
-        System.out.println("--------------------");
-    }
+
     public Block spawnABlock(Point spawnPoint){
         tetroOnControl = new BlockI(gridBlocks,spawnPoint);
         tetroOnControl.addToGameListeners(this);
@@ -75,4 +65,76 @@ public class GridPad implements GameListener{
         }
         return new Boolean[]{left,down,right};
     }
+    public Boolean[] movingCheck(Block tetroOnControl){
+        Boolean left=true;
+        Boolean down=true;
+        Boolean right=true;
+        for(Point p:tetroOnControl.getShape()){
+            if(p.x<=0){
+                left=false;
+            }
+            else if(gridBlocks[p.y][p.x-1].isLocked()){
+                left=false;
+            }
+            if(p.x>=width-1){
+                right=false;
+            }
+            else if(gridBlocks[p.y][p.x+1].isLocked()){
+                right=false;
+            }
+            if(p.y>=height-1){
+                down=false;
+            }
+            else if(gridBlocks[p.y+1][p.x].isLocked()){
+                down=false;
+            }
+
+        }
+        return new Boolean[]{left,down,right};
+    }
+    public GridBlock getBlock(int x, int y){
+        return gridBlocks[y][x];
+    }
+    public void addGUIListener(GUIListener guiListener){
+        guiListeners.add(guiListener);
+    }
+    public int getWidth(){
+        return width;
+    }
+    public int getHeight(){
+        return height;
+    }
+    public void notifyGUIListeners(){
+        for(GUIListener listener:guiListeners){
+            listener.update();
+        }
+    }
+    @Override
+    public void updateGame() {
+        /*for(GridBlock[] a: gridBlocks){
+            for(GridBlock b:a){
+                if(b.isFill())
+                    System.out.print('#');
+                else{
+                    System.out.print(' ');
+                }
+            }
+            System.out.println("");
+        }
+        System.out.println("--------------------");
+
+         */
+        for(GridBlock[] a: gridBlocks){
+            for(GridBlock b:a){
+
+                }
+            }
+
+
+        //System.out.println("Update");
+        notifyGUIListeners();
+    }
+
+
+
 }
