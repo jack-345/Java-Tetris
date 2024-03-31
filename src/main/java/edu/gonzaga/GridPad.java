@@ -126,6 +126,10 @@ public class GridPad implements GameListener{
         }
         return new Boolean[]{left,down,right};
     }
+
+    public void checkLine(){
+
+    }
     public GridBlock getBlock(int x, int y){
         return gridBlocks[y][x];
     }
@@ -145,7 +149,6 @@ public class GridPad implements GameListener{
     }
     @Override
     public void updateGame() {
-     
         notifyGUIListeners();
     }
 

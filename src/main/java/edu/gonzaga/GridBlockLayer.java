@@ -22,7 +22,7 @@ public class GridBlockLayer extends JPanel implements GUIListener{
             e.printStackTrace();
         }
         //setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        setSize(gridPad.getWidth()*10,gridPad.getHeight()*10);
+        setSize(gridPad.getWidth()*15,gridPad.getHeight()*15);
     }
     public void paintComponent(Graphics g)
     {
@@ -35,10 +35,10 @@ public class GridBlockLayer extends JPanel implements GUIListener{
                 if(gridPad.getBlock(j,i).isFill()){
                     Color color = gridPad.getBlock(j, i).getColor();
                     BufferedImage coloredImage = tintImage(blockImage, color, 0.3F);
-                    g.drawImage(coloredImage, j * 10, i * 10, 10, 10, null);
+                    g.drawImage(coloredImage, j * 15, i * 15, 15, 15, null);
                 }
                 else {
-                    g.drawImage(tintImage(blockImage,new Color(0,0,0),0.7F), j * 10, i * 10, 10, 10, null);
+                    g.drawImage(tintImage(blockImage,new Color(0,0,0),0.7F), j * 15, i * 15, 15, 15, null);
                 }
             }
         }

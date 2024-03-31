@@ -22,7 +22,7 @@ public class TetrisGame {
         rand.setSeed(System.currentTimeMillis());
         //GridBlockLayer is a JPanel
         GridBlockLayer grid = new GridBlockLayer(gridPad);
-        grid.setSize(100, 400);
+        grid.setSize(150, 600);
         //GUI listener can update the GUI interface.
         gridPad.addGUIListener(grid);
 
@@ -32,17 +32,17 @@ public class TetrisGame {
         application.add(grid);
 
         //One can try replacing these numbers with variables.
-        application.setSize(100, 440);
+        application.setSize(150, 660);
         application.setVisible(true);
         controller = new KeyboardController(application, gridPad);
         controller.listenForKeyPressed();
 
-        /*
-        trying to center the grid, not currently working
+
+        //trying to center the grid, not currently working
         int x = (application.getWidth() - grid.getWidth()) / 2;
         int y = (application.getHeight() - grid.getHeight()) / 2;
         grid.setLocation(x, y);
-        */
+
 
         //Setting up a Timer
         swingTimer = new Timer(500, ev -> {
