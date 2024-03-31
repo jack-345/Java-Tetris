@@ -27,8 +27,8 @@ public class TetrisGame {
             while (true) {
 
                 if ((System.currentTimeMillis() - timer) % runTime == 0) {
-                    //Only for windows command line, not work for idea command line.
-                    new ProcessBuilder("cmd", "/c", "cls").inheritIO().start().waitFor();
+                    // Clear screen command
+                    clearScreen();
                     if (gridPad.movingCheck()[1]) {
                         ter.step();
                     } else {
@@ -39,4 +39,15 @@ public class TetrisGame {
             }
         }
     }
+
+    // Method to clear the screen
+    private void clearScreen() throws IOException, InterruptedException {
+        if (System.getProperty("os.name").contains("Windows")) {
+            new ProcessBuilder("cmd", "/c", "cls").inheritIO().start().waitFor();
+        } else {
+            // For Unix/Linux/Mac OS
+            new ProcessBuilder("bash", "-c", "clear").inheritIO().start().waitFor();
+        }
+    }
 }
+
