@@ -114,6 +114,8 @@ public abstract class Block {
     public ArrayList<Point> getShape(){
         return shape;
     }
+    public abstract Point getCenter();
+    public abstract int getType();
     public void deleted(){
 
     }

@@ -11,6 +11,16 @@ public class BlockI extends Block {
         super.rotate(direction,shape.get(2));
     }
 
+    @Override
+    public Point getCenter() {
+        return shape.get(2);
+    }
+
+    @Override
+    public int getType() {
+        return 2;
+    }
+
     public BlockI(GridBlock[][] gridBlocks, Point spawnPoint){
         super(gridBlocks,spawnPoint, new Color(0, 255, 255));
         shape = new ArrayList<Point>();

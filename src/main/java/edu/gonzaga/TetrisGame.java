@@ -36,7 +36,7 @@ public class TetrisGame {
         swingTimer = new Timer(500, ev -> {
         });
         while (true) {
-            Integer wBlock = rand.nextInt(8);
+            Integer wBlock = rand.nextInt(7);
             Integer spawnX = rand.nextInt(16)+2;
             Integer spawnY=1;
             Integer rotate = rand.nextInt(9)-4;

@@ -65,6 +65,37 @@ public class GridPad implements GameListener{
         }
         return new Boolean[]{left,down,right};
     }
+    public boolean rotateCheck(int direction, Point center){
+        ArrayList<Point> shape = blockOnControl.getShape();
+        if(blockOnControl.getType()==0){
+            return false;
+        }
+        if(direction>0) {
+            for (int r = 0; r < direction; r++) {
+                for (int i = 0; i < shape.size(); i++) {
+                    Point p = shape.get(i);
+                    int x = center.x + center.y - p.y;
+                    int y = center.y - center.x + p.x;
+                    if(x<0||x>=width){
+                        return false;
+                    }
+                }
+            }
+        }
+        else if(direction<0) {
+            for (int r = 0; r < Math.abs(direction); r++) {
+                for (int i = 0; i < shape.size(); i++) {
+                    Point p = shape.get(i);
+                    int x = center.x - center.y + p.y;
+                    int y = center.y + center.x - p.x;
+                    if(x<0||x>=width){
+                        return false;
+                    }
+                }
+            }
+        }
+        return true;
+    }
     public Block getBlockOnControl(){
         return blockOnControl;
     }

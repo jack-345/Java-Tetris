@@ -38,7 +38,7 @@ public class GridBlockLayer extends JPanel implements GUIListener{
                     g.drawImage(coloredImage, j * 10, i * 10, 10, 10, null);
                 }
                 else {
-                    g.drawImage(backGroundImage, j * 10, i * 10, 10, 10, null);
+                    g.drawImage(tintImage(blockImage,new Color(0,0,0),0.7F), j * 10, i * 10, 10, 10, null);
                 }
             }
         }

@@ -42,9 +42,14 @@ public class KeyboardController extends Controller {
                         moveRight();
                     }
                 } else if (keyCode == KeyEvent.VK_Z || keyCode == KeyEvent.VK_K) {
-                    rotate(-1);
+                    if(gridPad.rotateCheck(-1,controlBlock.getCenter())) {
+                        rotate(-1);
+                    }
                 } else if (keyCode == KeyEvent.VK_X || keyCode == KeyEvent.VK_L){
-                    rotate(1);
+                    if(gridPad.rotateCheck(-1,controlBlock.getCenter())) {
+                        rotate(1);
+                    }
+
                 }
                 else if (keyCode == KeyEvent.VK_DOWN || keyCode == KeyEvent.VK_S) {
                     if(gridPad.movingCheck()[1]) {

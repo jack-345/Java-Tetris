@@ -9,6 +9,16 @@ public class BlockS extends Block{
         super.rotate(direction,shape.get(0));
     }
 
+    @Override
+    public Point getCenter() {
+        return shape.get(0);
+    }
+
+    @Override
+    public int getType() {
+        return 3;
+    }
+
     public BlockS(GridBlock[][] gridBlockField, Point spawnPoint) {
         super(gridBlockField, spawnPoint, new Color(0, 255, 0));
         shape = new ArrayList<Point>();
