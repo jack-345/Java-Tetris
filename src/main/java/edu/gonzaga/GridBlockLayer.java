@@ -1,15 +1,24 @@
 package edu.gonzaga;
 
+import javax.imageio.ImageIO;
 import javax.swing.*;
 import java.awt.*;
+import java.awt.image.BufferedImage;
+import java.io.File;
+import java.io.IOException;
 
 public class GridBlockLayer extends JPanel implements GUIListener{
     private GridPad gridPad;
-
+    private BufferedImage blockImage;
     public GridBlockLayer(GridPad gridPad){
         super();
         this.gridPad=gridPad;
         setVisible(true);
+        try {
+            blockImage = ImageIO.read(new File("src/main/java/edu/gonzaga/SourceImg/gridBlock.png"));
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
         //setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setSize(gridPad.getWidth()*10,gridPad.getHeight()*10);
     }
@@ -22,15 +31,26 @@ public class GridBlockLayer extends JPanel implements GUIListener{
         {
             for(int j=0;j<gridPad.getWidth();j++){
                 if(gridPad.getBlock(j,i).isFill()){
-                    g.setColor(gridPad.getBlock(j,i).getColor());
-                    g.fillRect(j*10, i*10, 10, 10);
-                    g.setColor(new Color(255,255,255));
+                    Color color = gridPad.getBlock(j, i).getColor();
+                    BufferedImage coloredImage = tintImage(blockImage, color, 0.3F);
+                    g.drawImage(coloredImage, j * 10, i * 10, 10, 10, null);
                 }
                 else {
                     //g.drawRect(j * 10, i * 10, 10, 10);
                 }
             }
         }
+    }
+    private BufferedImage tintImage(BufferedImage src, Color color,float alpha) {
+        alpha = Math.min(Math.max(alpha, 0.0f), 1.0f);
+        BufferedImage result = new BufferedImage(src.getWidth(), src.getHeight(), BufferedImage.TYPE_INT_ARGB);
+        Graphics2D g2d = result.createGraphics();
+        g2d.drawImage(src, 0, 0, null);
+        g2d.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, alpha));
+        g2d.setColor(color);
+        g2d.fillRect(0, 0, src.getWidth(), src.getHeight());
+        g2d.dispose();
+        return result;
     }
 
     @Override
