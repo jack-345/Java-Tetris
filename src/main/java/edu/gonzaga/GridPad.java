@@ -8,7 +8,7 @@ public class GridPad implements GameListener{
     Line lines;
     Integer height;
     Integer width;
-    Block tetroOnControl;
+    Block blockOnControl;
     ArrayList<GUIListener> guiListeners;
     public GridPad(Integer width, Integer height){
         this.width=width;
@@ -25,12 +25,12 @@ public class GridPad implements GameListener{
     //Export the game interface on the command line.
 
     public Block spawnABlock(Point spawnPoint){
-        tetroOnControl = new BlockI(gridBlocks,spawnPoint);
-        tetroOnControl.addToGameListeners(this);
-        return tetroOnControl;
+        blockOnControl = new BlockI(gridBlocks,spawnPoint);
+        blockOnControl.addToGameListeners(this);
+        return blockOnControl;
     }
     public void addABlock(Block ter){
-        tetroOnControl=ter;
+        blockOnControl =ter;
     }
     public GridBlock[][] getGridBlocks(){
         return gridBlocks;
@@ -42,7 +42,7 @@ public class GridPad implements GameListener{
         Boolean left=true;
         Boolean down=true;
         Boolean right=true;
-        for(Point p:tetroOnControl.getShape()){
+        for(Point p: blockOnControl.getShape()){
             if(p.x<=0){
                 left=false;
             }
@@ -64,6 +64,9 @@ public class GridPad implements GameListener{
 
         }
         return new Boolean[]{left,down,right};
+    }
+    public Block getBlockOnControl(){
+        return blockOnControl;
     }
     public Boolean[] movingCheck(Block tetroOnControl){
         Boolean left=true;
@@ -111,27 +114,7 @@ public class GridPad implements GameListener{
     }
     @Override
     public void updateGame() {
-        /*for(GridBlock[] a: gridBlocks){
-            for(GridBlock b:a){
-                if(b.isFill())
-                    System.out.print('#');
-                else{
-                    System.out.print(' ');
-                }
-            }
-            System.out.println("");
-        }
-        System.out.println("--------------------");
-
-         */
-        for(GridBlock[] a: gridBlocks){
-            for(GridBlock b:a){
-
-                }
-            }
-
-
-        //System.out.println("Update");
+     
         notifyGUIListeners();
     }
 

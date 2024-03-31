@@ -14,19 +14,23 @@ public class TetrisGame {
 
     public void startGame() throws IOException, InterruptedException {
         //set a timer
-
         Integer runTime = 100;
+        //Create a gridPad
         GridPad gridPad = new GridPad(20, 40);
         Random rand = new Random();
         rand.setSeed(System.currentTimeMillis());
+        //GridBlockLayer is a JPanel
         GridBlockLayer grid = new GridBlockLayer(gridPad);
+        //GUI listener can update the GUI interface.
         gridPad.addGUIListener(grid);
         JFrame application = new JFrame(); // creates a new JFrame
         application.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         application.add(grid);
+        //One can try replacing these numbers with variables.
         grid.setSize(200, 400);
         application.setSize(240, 440);
         application.setVisible(true);
+        //Setting up a Timer
         swingTimer = new Timer(500, ev -> {
         });
         while (true) {
@@ -37,6 +41,7 @@ public class TetrisGame {
             Integer colorG = rand.nextInt(256);
             Integer colorB = rand.nextInt(256);
             Integer rotate = rand.nextInt(9)-4;
+            //If the Timer doesn't end, i.e. the squares don't collide, then don't execute the following statement.
             if (!swingTimer.isRunning()) {
                 System.out.printf("What Block: %d, SpawnX: %d, Rotate: %d\n",wBlock,spawnX,rotate);
                 Block ter;
