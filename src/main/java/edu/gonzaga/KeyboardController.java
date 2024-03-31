@@ -5,10 +5,9 @@ import java.awt.event.KeyListener;
 
 public class KeyboardController extends Controller {
     private JFrame frame;
-    public KeyboardController(JFrame frame, Block block, GridPad gridPad){
-        super(block,gridPad);
+    public KeyboardController(JFrame frame,GridPad gridPad){
+        super(gridPad);
         this.frame = frame;
-        controlBlock = block;
     }
 
     public void moveLeft(){

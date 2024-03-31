@@ -30,7 +30,7 @@ public class TetrisGame {
         grid.setSize(200, 400);
         application.setSize(240, 440);
         application.setVisible(true);
-        controller = new KeyboardController(application, gridPad.getBlockOnControl(),gridPad);
+        controller = new KeyboardController(application, gridPad);
         controller.listenForKeyPressed();
         //Setting up a Timer
         swingTimer = new Timer(500, ev -> {
