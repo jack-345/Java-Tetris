@@ -23,6 +23,7 @@ public class MainMenuTest {
         playButton.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 TetrisGame game = new TetrisGame();
+                JFrame application = new JFrame();
                 //opens unresponsive/blank window of TetrisGame
                 try {
                     game.startGame();
