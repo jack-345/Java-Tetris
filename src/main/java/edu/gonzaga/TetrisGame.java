@@ -81,6 +81,7 @@ public class TetrisGame {
                 controller.changeTarget(ter);
                 gridPad.addABlock(ter);
                 ter.addToGameListeners(gridPad);
+                gridPad.lineCheck();
                 swingTimer = new Timer(runTime, e -> {
                     if (gridPad.movingCheck()[1]) {
                         ter.step();

@@ -2,6 +2,8 @@ package edu.gonzaga;
 
 import java.awt.*;
 import java.util.ArrayList;
+import java.util.Timer;
+import java.util.TimerTask;
 
 public abstract class Block {
     //This bias means spawn location.
@@ -115,10 +117,15 @@ public abstract class Block {
         return shape;
     }
     public abstract Point getCenter();
+
+    public void setColor(Color color){
+        this.color = color;
+    }
     public abstract int getType();
     public void deleted(){
 
     }
+
     //The lock state means that whenever a square is locked, that means it stops moving. One version means touching other squares or touching the bottom.
     public void lock(){
         for(Point p:shape){

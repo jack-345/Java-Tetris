@@ -1,6 +1,8 @@
 package edu.gonzaga;
 
 import java.awt.*;
+import java.util.Timer;
+import java.util.TimerTask;
 
 public class GridBlock {
     private Color color;
@@ -37,6 +39,32 @@ public class GridBlock {
     }
     public void checkBlock(Block ter){
 
+    }
+
+    public void flashBlock(Color flashColor, long flashDuration) {
+        // Save the original color
+        Color originalColor = color;
+
+        // Set the block color to the flash color
+        setColor(flashColor);
+
+        // Schedule a task to toggle the block color back and forth
+        Timer timer = new Timer();
+        timer.schedule(new TimerTask() {
+            boolean toggle = false;
+
+            public void run() {
+                // Toggle the block color
+                if (toggle) {
+                    setColor(flashColor);
+                } else {
+                    setColor(originalColor);
+                }
+
+                // Invert the toggle
+                toggle = !toggle;
+            }
+        }, 0, flashDuration / 2); // Flash duration divided by 2 for toggling between colors
     }
 
     public Color getColor() {
