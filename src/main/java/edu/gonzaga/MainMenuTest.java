@@ -1,3 +1,5 @@
+package edu.gonzaga;
+
 import javax.swing.*;
 import java.awt.*;
 
