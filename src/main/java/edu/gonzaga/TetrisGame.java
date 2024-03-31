@@ -31,7 +31,7 @@ public class TetrisGame {
         });
         while (true) {
             Integer wBlock = rand.nextInt(8);
-            Integer spawnX = rand.nextInt(17)+1;
+            Integer spawnX = rand.nextInt(16)+2;
             Integer spawnY=1;
             Integer colorR = rand.nextInt(256);
             Integer colorG = rand.nextInt(256);
