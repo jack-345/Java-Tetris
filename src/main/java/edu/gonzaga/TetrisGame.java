@@ -32,7 +32,7 @@ public class TetrisGame {
         application.add(grid);
 
         //One can try replacing these numbers with variables.
-        application.setSize(150, 660);
+        application.setSize(165, 660);
         application.setVisible(true);
         controller = new KeyboardController(application, gridPad);
         controller.listenForKeyPressed();
@@ -47,10 +47,10 @@ public class TetrisGame {
         //Setting up a Timer
         swingTimer = new Timer(500, ev -> {
         });
+        Integer spawnX = 4;
+        Integer spawnY=1;
         while (true) {
             Integer wBlock = rand.nextInt(7);
-            Integer spawnX = 4;
-            Integer spawnY=1;
             //If the Timer doesn't end, i.e. the squares don't collide, then don't execute the following statement.
             if (!swingTimer.isRunning()) {
                 System.out.printf("What Block: %d\n",wBlock);
