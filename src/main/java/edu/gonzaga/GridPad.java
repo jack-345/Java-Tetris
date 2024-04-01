@@ -30,7 +30,7 @@ public class GridPad implements GameListener{
         return blockOnControl;
     }
     public void addABlock(Block ter){
-        blockOnControl =ter;
+        blockOnControl = ter;
     }
     public GridBlock[][] getGridBlocks(){
         return gridBlocks;
@@ -65,6 +65,37 @@ public class GridPad implements GameListener{
         }
         return new Boolean[]{left,down,right};
     }
+    public boolean rotateCheck(int direction, Point center){
+        ArrayList<Point> shape = blockOnControl.getShape();
+        if(blockOnControl.getType()==0){
+            return false;
+        }
+        if(direction>0) {
+            for (int r = 0; r < direction; r++) {
+                for (int i = 0; i < shape.size(); i++) {
+                    Point p = shape.get(i);
+                    int x = center.x + center.y - p.y;
+                    int y = center.y - center.x + p.x;
+                    if(x<0||x>=width){
+                        return false;
+                    }
+                }
+            }
+        }
+        else if(direction<0) {
+            for (int r = 0; r < Math.abs(direction); r++) {
+                for (int i = 0; i < shape.size(); i++) {
+                    Point p = shape.get(i);
+                    int x = center.x - center.y + p.y;
+                    int y = center.y + center.x - p.x;
+                    if(x<0||x>=width){
+                        return false;
+                    }
+                }
+            }
+        }
+        return true;
+    }
     public Block getBlockOnControl(){
         return blockOnControl;
     }
@@ -95,6 +126,61 @@ public class GridPad implements GameListener{
         }
         return new Boolean[]{left,down,right};
     }
+
+    public void lineCheck() {
+        // Iterate through each row of the grid
+        for (int y = height - 1; y >= 0; y--) { // Start from the bottom row
+            boolean lineFilled = true;
+            // Check each block in the current row
+            for (int x = 0; x < width; x++) {
+                if (!gridBlocks[y][x].isLocked()) {
+                    lineFilled = false;
+                    break; // No need to check further if any block in the row is not locked
+                }
+            }
+            // If all blocks in the row are locked, the line is filled
+            if (lineFilled) {
+                clearLine(y); // Implement this method to clear the filled line
+                y++; // Since a line is cleared, decrement y to recheck the current row
+
+            }
+        }
+    }
+    public boolean lineCheckMZ(Integer line){
+        boolean lineFilled = true;
+        // Check each block in the current row
+        for (int x = 0; x < width; x++) {
+            if (!gridBlocks[line][x].isLocked()||gridBlocks[line][x].isDeleted()) {
+                lineFilled = false;
+                break; // No need to check further if any block in the row is not locked
+            }
+        }
+        return lineFilled;
+    }
+    public void clearLine(int rowIndex) {
+        // Remove all blocks from the specified row
+        for (int x = 0; x < width; x++) {
+           // gridBlocks[rowIndex+1][x].flashBlock(Color.white, 50);
+            gridBlocks[rowIndex][x].setLock(false); // Unlock the block
+            gridBlocks[rowIndex][x].setFill(false); // Empty the block
+            gridBlocks[rowIndex][x].setDeleted(false);
+        }
+
+        // Move down all blocks above the cleared row
+        for (int y = rowIndex - 1; y >= 0; y--) {
+            for (int x = 0; x < width; x++) {
+                GridBlock blockAbove = gridBlocks[y][x];
+                GridBlock blockBelow = gridBlocks[y + 1][x];
+                blockBelow.setLock(blockAbove.isLocked()); // Move down the lock state
+                blockBelow.setFill(blockAbove.isFill()); // Move down the fill state
+                blockBelow.setColor(blockAbove.getColor()); // Move down the color
+
+                // Clear the block above
+                blockAbove.setLock(false);
+                blockAbove.setFill(false);
+            }
+        }
+    }
     public GridBlock getBlock(int x, int y){
         return gridBlocks[y][x];
     }
@@ -114,10 +200,7 @@ public class GridPad implements GameListener{
     }
     @Override
     public void updateGame() {
-     
         notifyGUIListeners();
     }
-
-
 
 }

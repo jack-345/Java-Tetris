@@ -9,8 +9,18 @@ public class BlockJ extends Block{
         super.rotate(direction,shape.get(1));
     }
 
+    @Override
+    public Point getCenter() {
+        return shape.get(1);
+    }
+
+    @Override
+    public int getType() {
+        return 5;
+    }
+
     public BlockJ(GridBlock[][] gridBlockField, Point spawnPoint) {
-        super(gridBlockField, spawnPoint);
+        super(gridBlockField ,spawnPoint, new Color(0, 0, 255));
         shape = new ArrayList<Point>();
         shape.add(new Point(1+bias.x, bias.y));
         shape.add(new Point(1+bias.x,1+bias.y));
