@@ -2,7 +2,6 @@
 
 ### Project Description:
 
-
 ### Team Information:
 
 - Team Name:  Team Tetris

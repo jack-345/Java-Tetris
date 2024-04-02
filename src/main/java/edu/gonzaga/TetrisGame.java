@@ -7,13 +7,14 @@ import java.util.ArrayList;
 import java.util.Random;
 
 public class TetrisGame {
+    JFrame application = new JFrame(); // creates a new JFrame
     private Timer swingTimer;
     private Timer breakEffectTimer;
     private Controller controller;
     private ArrayList<Integer> lineDeleteBuffer;
-    JFrame application = new JFrame(); // creates a new JFrame
+
     public TetrisGame() {
-        lineDeleteBuffer=new ArrayList<Integer>();
+        lineDeleteBuffer = new ArrayList<Integer>();
     }
 
     public void startGame() throws IOException, InterruptedException {
@@ -35,10 +36,10 @@ public class TetrisGame {
         //One can try replacing these numbers with variables.
         application.setSize(165, 640);
         application.setVisible(true);
-        JLayeredPane layerPanel=new JLayeredPane();
+        JLayeredPane layerPanel = new JLayeredPane();
         layerPanel.setPreferredSize(application.getPreferredSize());
-        layerPanel.add(grid,JLayeredPane.DEFAULT_LAYER);
-        AnimeLayer anime=new AnimeLayer(grid);
+        layerPanel.add(grid, JLayeredPane.DEFAULT_LAYER);
+        AnimeLayer anime = new AnimeLayer(grid);
         //layerPanel.add(anime,JLayeredPane.PALETTE_LAYER); //add the amine layer to the layerPanel
         application.add(layerPanel);
         controller = new KeyboardController(application, gridPad);
@@ -54,26 +55,26 @@ public class TetrisGame {
         swingTimer = new Timer(500, ev -> {
         });
         Integer spawnX = 4;
-        Integer spawnY=1;
+        Integer spawnY = 1;
 
-           breakEffectTimer= new javax.swing.Timer(800, ev -> {
-               if(!lineDeleteBuffer.isEmpty()) {
-                   for (Integer aline : lineDeleteBuffer) {
+        breakEffectTimer = new javax.swing.Timer(800, ev -> {
+            if (!lineDeleteBuffer.isEmpty()) {
+                for (Integer aline : lineDeleteBuffer) {
 
-                       gridPad.clearLine(aline);
+                    gridPad.clearLine(aline);
 
-                   }
-                   gridPad.updateGame();
-                   lineDeleteBuffer.clear();
-               }
-            });
+                }
+                gridPad.updateGame();
+                lineDeleteBuffer.clear();
+            }
+        });
         breakEffectTimer.start();
         while (true) {
             Integer wBlock = rand.nextInt(7);
             //If the Timer doesn't end, i.e. the squares don't collide, then don't execute the following statement.
             if (!swingTimer.isRunning()) {
 
-                System.out.printf("What Block: %d\n",wBlock);
+                System.out.printf("What Block: %d\n", wBlock);
                 Block ter;
                 switch (wBlock) {
                     case 0:
@@ -109,14 +110,14 @@ public class TetrisGame {
                     } else {
                         ter.lock();
                         swingTimer.stop();
-                        for (int aLine =0; aLine <gridPad.getHeight(); aLine++) {
+                        for (int aLine = 0; aLine < gridPad.getHeight(); aLine++) {
 
-                            if(gridPad.lineCheckMZ(aLine)){
-                                if(lineBufferCheck(aLine)){
+                            if (gridPad.lineCheckMZ(aLine)) {
+                                if (lineBufferCheck(aLine)) {
                                     lineDeleteBuffer.add(aLine);
                                 }
-                                for (int w=0;w<gridPad.getWidth();w++){
-                                    gridPad.getBlock(w,aLine).setDeleted(true);
+                                for (int w = 0; w < gridPad.getWidth(); w++) {
+                                    gridPad.getBlock(w, aLine).setDeleted(true);
                                 }
                             }
                             gridPad.updateGame();
@@ -133,9 +134,10 @@ public class TetrisGame {
         }
 
     }
-    private boolean lineBufferCheck(int line){
-        for(Integer aLine: lineDeleteBuffer){
-            if(line==aLine){
+
+    private boolean lineBufferCheck(int line) {
+        for (Integer aLine : lineDeleteBuffer) {
+            if (line == aLine) {
                 return false;
             }
         }
