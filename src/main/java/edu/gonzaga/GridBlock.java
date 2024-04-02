@@ -14,31 +14,45 @@ public class GridBlock {
     private boolean isFill;
     //The lock state means that the gridBlock is locked. It means that the blocks it consists of have hit other blocks or have fallen to the bottom.
     private boolean isLocked;
+
+
+    private boolean isDeleted;
+
     //Create a new block by typing in the coordinates of the upper left corner of the gridblock, this is reserved for the gui and is not currently used, it can be any value.
-    public GridBlock(Point uL){
+    public GridBlock(Point uL) {
         this.upperLeft = uL;
         this.color = new Color(255, 255, 255);
     }
 
-    public GridBlock(Point uL, Point lL, Point uR, Point lR){
-        createBlock(uL,lL,uR,lR);
+    public GridBlock(Point uL, Point lL, Point uR, Point lR) {
+        createBlock(uL, lL, uR, lR);
     }
-    public void createBlock(Point uL,Point lL,Point uR,Point lR){
-        upperLeft=uL;
-        lowerLeft=lL;
-        upperRight=uR;
-        lowerRight=lR;
+
+    public void createBlock(Point uL, Point lL, Point uR, Point lR) {
+        upperLeft = uL;
+        lowerLeft = lL;
+        upperRight = uR;
+        lowerRight = lR;
+    }
+
+    public boolean isFill() {
+        return isFill;
     }
 
     public void setFill(boolean fill) {
         isFill = fill;
     }
 
-    public boolean isFill() {
-        return isFill;
-    }
-    public void checkBlock(Block ter){
+    public void checkBlock(Block ter) {
 
+    }
+
+    public boolean isDeleted() {
+        return isDeleted;
+    }
+
+    public void setDeleted(boolean deleted) {
+        isDeleted = deleted;
     }
 
     public void flashBlock(Color flashColor, long flashDuration) {
@@ -78,10 +92,12 @@ public class GridBlock {
     public boolean isLocked() {
         return isLocked;
     }
-    public void setLock(boolean lock){
-        isLocked=lock;
+
+    public void setLock(boolean lock) {
+        isLocked = lock;
     }
-    public void updateBlock(Block ter){
+
+    public void updateBlock(Block ter) {
         checkBlock(ter);
     }
 }
