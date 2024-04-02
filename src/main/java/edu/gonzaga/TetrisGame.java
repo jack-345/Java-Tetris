@@ -3,14 +3,18 @@ package edu.gonzaga;
 import javax.swing.*;
 import java.awt.*;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Random;
 
 public class TetrisGame {
-    private Timer swingTimer;
-    private Controller controller;
     JFrame application = new JFrame(); // creates a new JFrame
-    public TetrisGame() {
+    private Timer swingTimer;
+    private Timer breakEffectTimer;
+    private Controller controller;
+    private ArrayList<Integer> lineDeleteBuffer;
 
+    public TetrisGame() {
+        lineDeleteBuffer = new ArrayList<Integer>();
     }
 
     public void startGame() throws IOException, InterruptedException {
@@ -25,35 +29,58 @@ public class TetrisGame {
         grid.setSize(150, 600);
         //GUI listener can update the GUI interface.
         gridPad.addGUIListener(grid);
-
-
         application.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         application.setLayout(new BorderLayout());
-        application.add(grid);
 
         //One can try replacing these numbers with variables.
-        application.setSize(150, 660);
+        application.setSize(165, 640);
         application.setVisible(true);
-        controller = new KeyboardController(application, gridPad);
-        controller.listenForKeyPressed();
-
-
-        //trying to center the grid, not currently working
+        application.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        application.setLayout(new BorderLayout());
+        JLayeredPane layerPanel=new JLayeredPane();
+        layerPanel.setSize(application.getSize());
         int x = (application.getWidth() - grid.getWidth()) / 2;
         int y = (application.getHeight() - grid.getHeight()) / 2;
-        grid.setLocation(x, y);
+        layerPanel.setLocation(x, y);
+        layerPanel.add(grid, JLayeredPane.DEFAULT_LAYER);
+        AnimeLayer anime = new AnimeLayer(grid);
+        layerPanel.add(anime,JLayeredPane.PALETTE_LAYER); //add the amine layer to the layerPanel
+        application.add(layerPanel);
+        controller = new KeyboardController(application, gridPad);
+        controller.listenForKeyPressed();
+        //trying to center the grid, not currently working
 
+        anime.run(); /////the amine test demo
 
         //Setting up a Timer
         swingTimer = new Timer(500, ev -> {
         });
+        Integer spawnX = 4;
+        Integer spawnY=1;
+        breakEffectTimer= new javax.swing.Timer(800, ev -> {
+               if(!lineDeleteBuffer.isEmpty()) {
+                   for (Integer aline : lineDeleteBuffer) {
+                    gridPad.clearLine(aline);
+
+                }
+                gridPad.updateGame();
+                lineDeleteBuffer.clear();
+            }
+        });
+        breakEffectTimer.start();
+
+        Integer temp = rand.nextInt(7);
         while (true) {
-            Integer wBlock = rand.nextInt(7);
-            Integer spawnX = 4;
-            Integer spawnY=1;
+            Integer dBlock = rand.nextInt(7);
+            Integer wBlock = 0;
             //If the Timer doesn't end, i.e. the squares don't collide, then don't execute the following statement.
             if (!swingTimer.isRunning()) {
-                System.out.printf("What Block: %d\n",wBlock);
+
+                wBlock = temp;
+                temp = dBlock;
+                System.out.printf("What Block: %d\n", wBlock);
+                System.out.printf("What Block Next: %d\n", dBlock);
+
                 Block ter;
                 switch (wBlock) {
                     case 0:
@@ -81,20 +108,44 @@ public class TetrisGame {
                 controller.changeTarget(ter);
                 gridPad.addABlock(ter);
                 ter.addToGameListeners(gridPad);
-                gridPad.lineCheck();
                 swingTimer = new Timer(runTime, e -> {
+
                     if (gridPad.movingCheck()[1]) {
                         ter.step();
                     } else {
                         ter.lock();
                         swingTimer.stop();
+                        for (int aLine = 0; aLine < gridPad.getHeight(); aLine++) {
+
+                            if (gridPad.lineCheckMZ(aLine)) {
+                                if (lineBufferCheck(aLine)) {
+                                    lineDeleteBuffer.add(aLine);
+                                }
+                                for (int w = 0; w < gridPad.getWidth(); w++) {
+                                    gridPad.getBlock(w, aLine).setDeleted(true);
+                                }
+                            }
+                            gridPad.updateGame();
+
+                        }
                     }
                 });
+
                 swingTimer.start();
+
             }
 
         }
 
+    }
+
+    private boolean lineBufferCheck(int line) {
+        for (Integer aLine : lineDeleteBuffer) {
+            if (line == aLine) {
+                return false;
+            }
+        }
+        return true;
     }
 
 }

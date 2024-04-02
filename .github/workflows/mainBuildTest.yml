@@ -14,7 +14,7 @@ name: Final Project CI Pipeline
 # Controls when the action will run.
 # This will run on pushing to any branch, creating any pull request
 #  or if you run it manually via the web interface (workflow_dispatch)
-on: [push, pull_request, workflow_dispatch]
+on: [ push, pull_request, workflow_dispatch ]
 
 # For non-pre built yahtzee containers, this needs to be done first.
 #  run: |
@@ -29,7 +29,7 @@ jobs:
   # This workflow contains jobs to build this project
   build:
     name: "Build Source"
-    runs-on: [self-hosted, linux, CPSC224]
+    runs-on: [ self-hosted, linux, CPSC224 ]
     timeout-minutes: 3
     steps:
       - uses: actions/checkout@v3
@@ -44,7 +44,7 @@ jobs:
   # ***** TEST **************************************************************
   test:
     name: "Test Project"
-    runs-on: [self-hosted, linux, CPSC224]
+    runs-on: [ self-hosted, linux, CPSC224 ]
     timeout-minutes: 3
     steps:
       - uses: actions/checkout@v3
@@ -54,7 +54,7 @@ jobs:
   # ***** Spellcheck **************************************************************
   spellcheck:
     name: "Spellcheck"
-    runs-on: [self-hosted, linux, CPSC224]
+    runs-on: [ self-hosted, linux, CPSC224 ]
     timeout-minutes: 2
     steps:
       - uses: actions/checkout@v3
@@ -64,7 +64,7 @@ jobs:
   # ***** Javadoc **************************************************************
   javadoc:
     name: "Javadoc Generator"
-    runs-on: [self-hosted, linux, CPSC224]
+    runs-on: [ self-hosted, linux, CPSC224 ]
     timeout-minutes: 3
     steps:
       - uses: actions/checkout@v3
