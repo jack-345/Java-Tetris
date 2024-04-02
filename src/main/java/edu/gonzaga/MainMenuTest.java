@@ -50,9 +50,9 @@ public class MainMenuTest{
         panel.add(playButton);
         panel.add(settingsButton);
         panel.add(tutorialButton);
-        panel.setLayout(new GridLayout(3, 1));
+        panel.setLayout(null);
 
-        mainMenuFrame.getContentPane().add(panel);
+        mainMenuFrame.add(panel);
         mainMenuFrame.setVisible(true);
     }
 
