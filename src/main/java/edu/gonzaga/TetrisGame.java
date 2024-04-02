@@ -28,15 +28,18 @@ public class TetrisGame {
         grid.setSize(150, 600);
         //GUI listener can update the GUI interface.
         gridPad.addGUIListener(grid);
-
-
         application.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         application.setLayout(new BorderLayout());
-        application.add(grid);
+
 
         //One can try replacing these numbers with variables.
-        application.setSize(165, 660);
+        application.setSize(165, 640);
         application.setVisible(true);
+        JLayeredPane layerPanel=new JLayeredPane();
+        layerPanel.setPreferredSize(application.getPreferredSize());
+        layerPanel.add(grid,JLayeredPane.DEFAULT_LAYER);
+        layerPanel.add(new AnimeLayer(grid),JLayeredPane.PALETTE_LAYER);
+        application.add(layerPanel);
         controller = new KeyboardController(application, gridPad);
         controller.listenForKeyPressed();
 
@@ -44,7 +47,7 @@ public class TetrisGame {
         //trying to center the grid, not currently working
         int x = (application.getWidth() - grid.getWidth()) / 2;
         int y = (application.getHeight() - grid.getHeight()) / 2;
-        grid.setLocation(x, y);
+        layerPanel.setLocation(x, y);
 
 
         //Setting up a Timer
