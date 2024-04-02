@@ -146,6 +146,7 @@ public class GridPad implements GameListener{
             }
         }
     }
+
     public boolean lineCheckMZ(Integer line){
         boolean lineFilled = true;
         // Check each block in the current row
@@ -164,6 +165,7 @@ public class GridPad implements GameListener{
             gridBlocks[rowIndex][x].setLock(false); // Unlock the block
             gridBlocks[rowIndex][x].setFill(false); // Empty the block
             gridBlocks[rowIndex][x].setDeleted(false);
+
         }
 
         // Move down all blocks above the cleared row
@@ -174,7 +176,6 @@ public class GridPad implements GameListener{
                 blockBelow.setLock(blockAbove.isLocked()); // Move down the lock state
                 blockBelow.setFill(blockAbove.isFill()); // Move down the fill state
                 blockBelow.setColor(blockAbove.getColor()); // Move down the color
-
                 // Clear the block above
                 blockAbove.setLock(false);
                 blockAbove.setFill(false);

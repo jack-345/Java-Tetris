@@ -36,6 +36,7 @@ public class GridBlockLayer extends JPanel implements GUIListener{
             for(int j=0;j<gridPad.getWidth();j++){
                 if(gridPad.getBlock(j,i).isFill()){
 
+
                     if(!gridPad.getBlock(j,i).isDeleted()) {
                         Color color = gridPad.getBlock(j, i).getColor();
                         BufferedImage coloredImage = tintImage(blockImage, color, 0.3F);
@@ -46,6 +47,7 @@ public class GridBlockLayer extends JPanel implements GUIListener{
                         g.drawImage(coloredImage, j * 15, i * 15, 15, 15, null);
 
                     }
+
                 }
                 else {
                     g.drawImage(tintImage(blockImage,new Color(0,0,0),0.7F), j * 15, i * 15, 15, 15, null);

@@ -31,10 +31,11 @@ public class TetrisGame {
         application.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         application.setLayout(new BorderLayout());
 
-
         //One can try replacing these numbers with variables.
         application.setSize(165, 640);
         application.setVisible(true);
+        application.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        application.setLayout(new BorderLayout());
         JLayeredPane layerPanel=new JLayeredPane();
         layerPanel.setPreferredSize(application.getPreferredSize());
         layerPanel.add(grid,JLayeredPane.DEFAULT_LAYER);
@@ -50,13 +51,13 @@ public class TetrisGame {
         int y = (application.getHeight() - grid.getHeight()) / 2;
         layerPanel.setLocation(x, y);
         //anime.run(); /////the amine test demo
+
         //Setting up a Timer
         swingTimer = new Timer(500, ev -> {
         });
         Integer spawnX = 4;
         Integer spawnY=1;
-
-           breakEffectTimer= new javax.swing.Timer(800, ev -> {
+        breakEffectTimer= new javax.swing.Timer(800, ev -> {
                if(!lineDeleteBuffer.isEmpty()) {
                    for (Integer aline : lineDeleteBuffer) {
 
@@ -72,7 +73,6 @@ public class TetrisGame {
             Integer wBlock = rand.nextInt(7);
             //If the Timer doesn't end, i.e. the squares don't collide, then don't execute the following statement.
             if (!swingTimer.isRunning()) {
-
                 System.out.printf("What Block: %d\n",wBlock);
                 Block ter;
                 switch (wBlock) {
@@ -101,7 +101,6 @@ public class TetrisGame {
                 controller.changeTarget(ter);
                 gridPad.addABlock(ter);
                 ter.addToGameListeners(gridPad);
-
                 swingTimer = new Timer(runTime, e -> {
 
                     if (gridPad.movingCheck()[1]) {
@@ -123,7 +122,6 @@ public class TetrisGame {
 
                         }
                     }
-
                 });
 
                 swingTimer.start();
