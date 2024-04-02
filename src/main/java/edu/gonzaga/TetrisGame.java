@@ -39,10 +39,10 @@ public class TetrisGame {
         application.setLayout(new BorderLayout());
         JLayeredPane layerPanel=new JLayeredPane();
         layerPanel.setPreferredSize(application.getPreferredSize());
-        layerPanel.add(grid, JLayeredPane.DEFAULT_LAYER);
+        layerPanel.add(grid);
         AnimeLayer anime = new AnimeLayer(grid);
+        application.add(grid);
         //layerPanel.add(anime,JLayeredPane.PALETTE_LAYER); //add the amine layer to the layerPanel
-        application.add(layerPanel);
         controller = new KeyboardController(application, gridPad);
         controller.listenForKeyPressed();
 
@@ -69,11 +69,19 @@ public class TetrisGame {
             }
         });
         breakEffectTimer.start();
+
+        Integer temp = rand.nextInt(7);
         while (true) {
-            Integer wBlock = rand.nextInt(7);
+            Integer dBlock = rand.nextInt(7);
+            Integer wBlock = 0;
             //If the Timer doesn't end, i.e. the squares don't collide, then don't execute the following statement.
             if (!swingTimer.isRunning()) {
+
+                wBlock = temp;
+                temp = dBlock;
                 System.out.printf("What Block: %d\n", wBlock);
+                System.out.printf("What Block Next: %d\n", dBlock);
+
                 Block ter;
                 switch (wBlock) {
                     case 0:
