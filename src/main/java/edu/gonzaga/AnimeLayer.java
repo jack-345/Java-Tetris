@@ -34,7 +34,7 @@ public class AnimeLayer extends JLayeredPane {
                 velX = -velX;
             }
             x += velX;
-            System.out.println(x);
+           // System.out.println(x);
             repaint();
         });
         timer.start();
