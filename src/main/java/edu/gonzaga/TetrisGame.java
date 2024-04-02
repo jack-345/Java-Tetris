@@ -38,20 +38,19 @@ public class TetrisGame {
         application.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         application.setLayout(new BorderLayout());
         JLayeredPane layerPanel=new JLayeredPane();
-        layerPanel.setPreferredSize(application.getPreferredSize());
-        layerPanel.add(grid);
-        AnimeLayer anime = new AnimeLayer(grid);
-        application.add(grid);
-        //layerPanel.add(anime,JLayeredPane.PALETTE_LAYER); //add the amine layer to the layerPanel
-        controller = new KeyboardController(application, gridPad);
-        controller.listenForKeyPressed();
-
-
-        //trying to center the grid, not currently working
+        layerPanel.setSize(application.getSize());
         int x = (application.getWidth() - grid.getWidth()) / 2;
         int y = (application.getHeight() - grid.getHeight()) / 2;
         layerPanel.setLocation(x, y);
-        //anime.run(); /////the amine test demo
+        layerPanel.add(grid, JLayeredPane.DEFAULT_LAYER);
+        AnimeLayer anime = new AnimeLayer(grid);
+        layerPanel.add(anime,JLayeredPane.PALETTE_LAYER); //add the amine layer to the layerPanel
+        application.add(layerPanel);
+        controller = new KeyboardController(application, gridPad);
+        controller.listenForKeyPressed();
+        //trying to center the grid, not currently working
+
+        anime.run(); /////the amine test demo
 
         //Setting up a Timer
         swingTimer = new Timer(500, ev -> {
