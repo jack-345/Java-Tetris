@@ -50,8 +50,6 @@ public class TetrisGame {
         controller.listenForKeyPressed();
         //trying to center the grid, not currently working
 
-        anime.run(); //the animation overlay of a white block
-
         //Setting up a Timer
         swingTimer = new Timer(500, ev -> {
         });

@@ -47,7 +47,7 @@ public class KeyboardController extends Controller {
                     if (gridPad.movingCheck()[2]) {
                         moveRight();
                     }
-                } else if (keyCode == KeyEvent.VK_Z || keyCode == KeyEvent.VK_K) {
+                } else if (keyCode == KeyEvent.VK_Z || keyCode == KeyEvent.VK_K || keyCode == KeyEvent.VK_UP) {
                     if (gridPad.rotateCheck(-1, controlBlock.getCenter())) {
                         rotate(-1);
                     }
