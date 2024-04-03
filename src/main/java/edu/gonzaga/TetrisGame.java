@@ -33,7 +33,7 @@ public class TetrisGame {
         application.setLayout(new BorderLayout());
 
         //One can try replacing these numbers with variables.
-        application.setSize(165, 640);
+        application.setSize(165, 660);
         application.setVisible(true);
         application.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         application.setLayout(new BorderLayout());
@@ -50,7 +50,7 @@ public class TetrisGame {
         controller.listenForKeyPressed();
         //trying to center the grid, not currently working
 
-        anime.run(); /////the amine test demo
+        anime.run(); //the animation overlay of a white block
 
         //Setting up a Timer
         swingTimer = new Timer(500, ev -> {
@@ -108,6 +108,7 @@ public class TetrisGame {
                 controller.changeTarget(ter);
                 gridPad.addABlock(ter);
                 ter.addToGameListeners(gridPad);
+                anime.setBlock(ter);
                 swingTimer = new Timer(runTime, e -> {
 
                     if (gridPad.movingCheck()[1]) {
