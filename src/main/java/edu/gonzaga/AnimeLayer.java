@@ -7,11 +7,13 @@ public class AnimeLayer extends JLayeredPane {
     Point p;
     Block ghostTer;
     private Timer timer;
+    GridPad gridPad;
 
-    public AnimeLayer(GridBlockLayer blockLayer) {
+    public AnimeLayer(GridBlockLayer blockLayer, GridPad gridPad) {
         super();
         setSize(blockLayer.getSize());
         setVisible(true);
+        this.gridPad = gridPad;
         //setBackground(Color.WHITE);
         //setOpaque(false);
         //setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -26,7 +28,10 @@ public class AnimeLayer extends JLayeredPane {
     public void paintComponent(Graphics g) {
         super.paintComponent(g);
         int width = getWidth(); // total width
-        int height = getHeight(); // total height
+        int height = getHeight();
+        for (Point p : ghostTer.shape) {
+            height = gridPad.findLockHeight(p.x); // total height
+        }
 
         Color backgroundColor = new Color(255, 255, 255, 45);
         g.setColor(backgroundColor);

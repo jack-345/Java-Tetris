@@ -43,7 +43,7 @@ public class TetrisGame {
         int y = (application.getHeight() - grid.getHeight()) / 2;
         layerPanel.setLocation(x, y);
         layerPanel.add(grid, JLayeredPane.DEFAULT_LAYER);
-        AnimeLayer anime = new AnimeLayer(grid);
+        AnimeLayer anime = new AnimeLayer(grid, gridPad);
         layerPanel.add(anime,JLayeredPane.PALETTE_LAYER); //add the amine layer to the layerPanel
         application.add(layerPanel);
         controller = new KeyboardController(application, gridPad);
