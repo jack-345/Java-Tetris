@@ -23,6 +23,7 @@ public class MainMenuTest{
         playButton.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 if (e.getSource() == playButton) {
+                    mainMenuFrame.setVisible(false);
                     TetrisGame game = new TetrisGame();
                     try {
                         game.startGame();
