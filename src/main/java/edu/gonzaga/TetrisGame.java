@@ -64,6 +64,7 @@ public class TetrisGame {
         });
         int spawnX = 4;
         int spawnY=1;
+
         breakEffectTimer= new javax.swing.Timer(800, ev -> {
                if(!lineDeleteBuffer.isEmpty()) {
                    for (Integer aline : lineDeleteBuffer) {
@@ -161,9 +162,22 @@ public class TetrisGame {
         return true;
     }
     public int countScore(int lines){
-        int base=50;
-        for(int i=1;i<=lines;i++){
-            base*=i;
+        int base=0;
+        switch (lines) {
+            case 1:
+                base = 100 * lines;
+                break;
+            case 2:
+                base = 300 * lines;
+                break;
+            case 3:
+                base = 500 * lines;
+                break;
+            case 4:
+                base = 800 * lines;
+                break;
+            default:
+                System.out.println("Invalid number of lines cleared.");
         }
         return base;
     }
