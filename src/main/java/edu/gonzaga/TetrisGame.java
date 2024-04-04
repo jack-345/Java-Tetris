@@ -13,6 +13,8 @@ public class TetrisGame {
     private Controller controller;
     private ArrayList<Integer> lineDeleteBuffer;
     private GridPad gridPad;
+    private JLabel nextBlockLabel;
+    private JLabel scoreLabel;
 
     public TetrisGame() {
         lineDeleteBuffer = new ArrayList<Integer>();
@@ -35,6 +37,24 @@ public class TetrisGame {
         application.setVisible(true);
         application.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         application.setLayout(null);
+
+        // Information panel for next block
+        JPanel nextBlockPanel = new JPanel();
+        nextBlockPanel.setBounds(350, 50, 100, 100);
+        nextBlockPanel.setBorder(BorderFactory.createTitledBorder("Next Block"));
+        application.add(nextBlockPanel);
+
+        nextBlockLabel = new JLabel();
+        nextBlockPanel.add(nextBlockLabel);
+
+        // Information panel for score
+        JPanel scorePanel = new JPanel();
+        scorePanel.setBounds(350, 200, 100, 100);
+        scorePanel.setBorder(BorderFactory.createTitledBorder("Score"));
+        application.add(scorePanel);
+
+        scoreLabel = new JLabel("0");
+        scorePanel.add(scoreLabel);
 
 
         JLayeredPane layerPanel=new JLayeredPane();
@@ -91,6 +111,9 @@ public class TetrisGame {
                 System.out.printf("What Block Next: %d\n", dBlock);
 
                 Block ter=getBlock(wBlock,spawnX,spawnY);
+
+                // Display next block
+                nextBlockLabel.setText(dBlock.toString());
 
                 controller.changeTarget(ter);
                 gridPad.addABlock(ter);
