@@ -12,6 +12,7 @@ public class TetrisGame {
     private Timer breakEffectTimer;
     private Controller controller;
     private ArrayList<Integer> lineDeleteBuffer;
+    private GridPad gridPad;
 
     public TetrisGame() {
         lineDeleteBuffer = new ArrayList<Integer>();
@@ -21,7 +22,7 @@ public class TetrisGame {
         //set a timer
         Integer runTime = 100;
         //Create a gridPad
-        GridPad gridPad = new GridPad(10, 40);
+        this.gridPad = new GridPad(10, 40);
         Random rand = new Random();
         rand.setSeed(System.currentTimeMillis());
         //GridBlockLayer is a JPanel
@@ -88,30 +89,8 @@ public class TetrisGame {
                 System.out.printf("What Block: %d\n", wBlock);
                 System.out.printf("What Block Next: %d\n", dBlock);
 
-                Block ter;
-                switch (wBlock) {
-                    case 0:
-                        ter = new BlockO(gridPad.getGridBlocks(), new Point(spawnX, spawnY));
-                        break;
-                    case 1:
-                        ter = new BlockL(gridPad.getGridBlocks(), new Point(spawnX, spawnY));
-                        break;
-                    case 2:
-                        ter = new BlockI(gridPad.getGridBlocks(), new Point(spawnX, spawnY));
-                        break;
-                    case 3:
-                        ter = new BlockS(gridPad.getGridBlocks(), new Point(spawnX, spawnY));
-                        break;
-                    case 4:
-                        ter = new BlockZ(gridPad.getGridBlocks(), new Point(spawnX, spawnY));
-                        break;
-                    case 5:
-                        ter = new BlockT(gridPad.getGridBlocks(), new Point(spawnX, spawnY));
-                        break;
-                    default:
-                        ter = new BlockJ(gridPad.getGridBlocks(), new Point(spawnX, spawnY));
-                        break;
-                }
+                Block ter=getBlock(wBlock,spawnX,spawnY);
+
                 controller.changeTarget(ter);
                 gridPad.addABlock(ter);
                 ter.addToGameListeners(gridPad);
@@ -146,7 +125,33 @@ public class TetrisGame {
         }
 
     }
-
+    private Block getBlock(int blockID,int spawnX,int spawnY){
+        Block ter;
+        switch (blockID) {
+            case 0:
+                ter = new BlockO(gridPad.getGridBlocks(), new Point(spawnX, spawnY));
+                break;
+            case 1:
+                ter = new BlockL(gridPad.getGridBlocks(), new Point(spawnX, spawnY));
+                break;
+            case 2:
+                ter = new BlockI(gridPad.getGridBlocks(), new Point(spawnX, spawnY));
+                break;
+            case 3:
+                ter = new BlockS(gridPad.getGridBlocks(), new Point(spawnX, spawnY));
+                break;
+            case 4:
+                ter = new BlockZ(gridPad.getGridBlocks(), new Point(spawnX, spawnY));
+                break;
+            case 5:
+                ter = new BlockT(gridPad.getGridBlocks(), new Point(spawnX, spawnY));
+                break;
+            default:
+                ter = new BlockJ(gridPad.getGridBlocks(), new Point(spawnX, spawnY));
+                break;
+        }
+        return ter;
+    }
     private boolean lineBufferCheck(int line) {
         for (Integer aLine : lineDeleteBuffer) {
             if (line == aLine) {
