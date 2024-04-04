@@ -9,18 +9,29 @@ import java.io.IOException;
 
 public class BackGroundLayer extends JLayeredPane {
     BufferedImage backgroundImage;
+    BufferedImage backgroundImage2;
     public BackGroundLayer(int width,int height){
         super();
         setSize(width,height);
         setVisible(true);
-        try {
-            backgroundImage= ImageIO.read(new File("src/main/java/edu/gonzaga/SourceImg/backGroundLayer2.png"));
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
+
     }
     public void paintComponent(Graphics g) {
         super.paintComponent(g);
         g.drawImage(backgroundImage,0,0,getWidth(),getHeight(),null);
+    }
+    public void show(int img){
+        try {
+        if(img==0){
+            backgroundImage= ImageIO.read(new File("src/main/java/edu/gonzaga/SourceImg/backGroundLayer2.png"));
+
+        }
+        else {
+            backgroundImage=ImageIO.read(new File("src/main/java/edu/gonzaga/SourceImg/backgroundImg.png"));
+        }
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+        repaint();
     }
 }

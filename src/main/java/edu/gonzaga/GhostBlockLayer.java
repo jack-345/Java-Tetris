@@ -4,13 +4,13 @@ import javax.swing.*;
 import java.awt.*;
 import java.util.ArrayList;
 
-public class AnimeLayer extends JLayeredPane {
+public class GhostBlockLayer extends JLayeredPane {
     Point p;
     Block ghostTer;
     private Timer timer;
     GridPad gridPad;
     ArrayList<Point> ghostShape;
-    public AnimeLayer(GridBlockLayer blockLayer, GridPad gridPad) {
+    public GhostBlockLayer(GridBlockLayer blockLayer, GridPad gridPad) {
         super();
         setSize(blockLayer.getSize());
         setVisible(true);
@@ -55,7 +55,7 @@ public class AnimeLayer extends JLayeredPane {
                 closest=height-p.y*gridSize;
                 blockWillTouchClone= (Point) p.clone();
                 blockWillTouch=p;
-                System.out.print(height-p.y*gridSize);
+                //System.out.print(height-p.y*gridSize);
 
             }
             if(p.y>lowestBlockPoint){
@@ -72,9 +72,9 @@ public class AnimeLayer extends JLayeredPane {
             int y = highest - gridSize;// Adding 1 to p.y to ensure the bottom-most row is at the bottom
             g.fillRect(p.x * gridSize, (p.y-1)*gridSize-(blockWillTouch.y-highest/gridSize)*gridSize, gridSize, gridSize);
            // System.out.println(p.y);
-            System.out.println(blockWillTouch.y-highest/gridSize);
-            System.out.println(blockWillTouch);
-            System.out.println(highest);
+            //System.out.println(blockWillTouch.y-highest/gridSize);
+            //System.out.println(blockWillTouch);
+            //System.out.println(highest);
         }
         //System.out.println("Draw");
     }

@@ -29,23 +29,31 @@ public class TetrisGame {
         grid.setSize(150, 600);
         //GUI listener can update the GUI interface.
         gridPad.addGUIListener(grid);
-        application.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        application.setLayout(new BorderLayout());
-
         //One can try replacing these numbers with variables.
-        application.setSize(165, 660);
+        application.setSize(500, 700);
         application.setVisible(true);
         application.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        application.setLayout(new BorderLayout());
+        application.setLayout(null);
+
+
         JLayeredPane layerPanel=new JLayeredPane();
-        layerPanel.setSize(application.getSize());
         int x = (application.getWidth() - grid.getWidth()) / 2;
-        int y = (application.getHeight() - grid.getHeight()) / 2;
+        int y = 32;//(application.getHeight() - grid.getHeight()) / 2;
         layerPanel.setLocation(x, y);
-        layerPanel.add(grid, JLayeredPane.DEFAULT_LAYER);
-        AnimeLayer anime = new AnimeLayer(grid, gridPad);
-        layerPanel.add(anime,JLayeredPane.PALETTE_LAYER); //add the amine layer to the layerPanel
+
+        BackGroundLayer moreBackGroundlayer = new BackGroundLayer(application.getWidth(),application.getHeight());
+        BackGroundLayer backGroundLayer= new BackGroundLayer(180,650);
+        backGroundLayer.setLocation(x-15,y-25);
+        moreBackGroundlayer.add(backGroundLayer,JLayeredPane.DEFAULT_LAYER);
+        layerPanel.setSize(grid.getSize());
+        layerPanel.add(grid, JLayeredPane.PALETTE_LAYER);
+        GhostBlockLayer anime = new GhostBlockLayer(grid, gridPad);
+        layerPanel.add(anime,JLayeredPane.MODAL_LAYER); //add the amine layer to the layerPanel
+        application.add(moreBackGroundlayer);
+        moreBackGroundlayer.show(1);
+        backGroundLayer.show(0);
         application.add(layerPanel);
+
         controller = new KeyboardController(application, gridPad);
         controller.listenForKeyPressed();
         //trying to center the grid, not currently working
@@ -53,8 +61,8 @@ public class TetrisGame {
         //Setting up a Timer
         swingTimer = new Timer(500, ev -> {
         });
-        Integer spawnX = 4;
-        Integer spawnY=1;
+        int spawnX = 4;
+        int spawnY=1;
         breakEffectTimer= new javax.swing.Timer(800, ev -> {
                if(!lineDeleteBuffer.isEmpty()) {
                    for (Integer aline : lineDeleteBuffer) {
@@ -62,12 +70,13 @@ public class TetrisGame {
 
                 }
                 gridPad.updateGame();
+                   System.out.printf("Add score: %d\n",countScore(lineDeleteBuffer.size()));
                 lineDeleteBuffer.clear();
             }
         });
         breakEffectTimer.start();
 
-        Integer temp = rand.nextInt(7);
+        int temp = rand.nextInt(7);
         while (true) {
             Integer dBlock = rand.nextInt(7);
             Integer wBlock = 0;
@@ -145,6 +154,13 @@ public class TetrisGame {
             }
         }
         return true;
+    }
+    public int countScore(int lines){
+        int base=50;
+        for(int i=1;i<=lines;i++){
+            base*=i;
+        }
+        return base;
     }
 
 }

@@ -15,6 +15,7 @@ public class GridBlockLayer extends JPanel implements GUIListener {
 
     public GridBlockLayer(GridPad gridPad) {
         super();
+        setSize(150, 600);
         this.gridPad = gridPad;
         setVisible(true);
         try {
