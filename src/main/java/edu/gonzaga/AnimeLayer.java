@@ -28,6 +28,7 @@ public class AnimeLayer extends JLayeredPane {
     public void paintComponent(Graphics g) {
         super.paintComponent(g);
         //int width = getWidth(); // total width
+        int highest=getHeight();
         int height;
         int gridSize = 15;
         Color backgroundColor = new Color(255, 255, 255, 45);
@@ -35,8 +36,16 @@ public class AnimeLayer extends JLayeredPane {
 
         for(Point p : ghostTer.shape) {
             height = gridPad.findLockHeight(p.x); // total height
-            int y = height - gridSize;// Adding 1 to p.y to ensure the bottom-most row is at the bottom
-            g.fillRect(p.x * gridSize, y, gridSize, gridSize);
+            if (height < highest) {
+                highest = height;
+            }
+        }
+
+        for(Point p : ghostTer.shape) {
+            int y = highest - gridSize;// Adding 1 to p.y to ensure the bottom-most row is at the bottom
+            g.fillRect(p.x * gridSize, (highest-gridSize), gridSize, gridSize);
+            System.out.println(p.y);
+            System.out.println(highest-gridSize);
         }
         //System.out.println("Draw");
     }
