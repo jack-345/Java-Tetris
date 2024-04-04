@@ -147,6 +147,15 @@ public class GridPad implements GameListener {
         }
     }
 
+    public Integer findLockHeight (Point point){
+        for(int y = point.y; y < height; y++) {
+            if (gridBlocks[y][point.x].isLocked()) {
+                 return y * 15;
+            }
+        }
+        return (height * 15);
+    }
+
     public boolean lineCheckMZ(Integer line) {
         boolean lineFilled = true;
         // Check each block in the current row
