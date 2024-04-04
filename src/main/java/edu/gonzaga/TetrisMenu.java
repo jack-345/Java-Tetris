@@ -5,28 +5,43 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Random;
 
 import edu.gonzaga.TetrisGame;
 import edu.gonzaga.Tetris;
 
-public class TetrisMenu {
+public class TetrisMenu extends TetrisGame {
+
+    private Timer swingTimer;
+    private Timer breakEffectTimer;
+    private Controller controller;
+    private ArrayList<Integer> lineDeleteBuffer;
+    private GridPad gridPad;
+    private JLabel nextBlockLabel;
+    private JLabel scoreLabel;
+    private Integer score = 0;
+
     public static void main(String[] args) throws IOException, InterruptedException {
 
+        //attempting to launch game in background, pause the timer, and make it invisible until "Play" clicked
         TetrisGame game = new TetrisGame();
-
-        JFrame mainMenuFrame = new JFrame("Main Menu");
-        mainMenuFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        mainMenuFrame.setSize(770, 820);
-        JPanel panel = new JPanel();
+        JFrame application = new JFrame();
+        game.startGame();
+        application.setVisible(false);
         
+        //Main menu buttons to start the game, allow user to alter settings, click "How To Play" to learn controls + rules of Tetris
+        JFrame mainMenuFrame = new JFrame();
+        JPanel panel = new JPanel();
         JButton playButton = new JButton("Play");
         playButton.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 if (e.getSource() == playButton) {
                     mainMenuFrame.setVisible(false);
-                    JFrame application = new JFrame();
+
                     application.setVisible(true);
                     try {
+                        
                         game.startGame();
                     } catch (IOException | InterruptedException e1) {
                         // TODO Auto-generated catch block
