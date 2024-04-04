@@ -5,6 +5,10 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.IOException;
+import javax.swing.JOptionPane;
+import javax.swing.JButton;
+import javax.swing.JFrame;
+import javax.swing.JPanel;
 
 import edu.gonzaga.TetrisGame;
 import edu.gonzaga.Tetris;
@@ -44,7 +48,11 @@ public class MainMenuTest{
         JButton tutorialButton = new JButton("How To Play");
         tutorialButton.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                
+                if (e.getSource() == tutorialButton) {
+                    mainMenuFrame.setVisible(false);
+                    JPanel tutorial = new JPanel();
+                }
+
             }
         });
 
