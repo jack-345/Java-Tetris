@@ -150,6 +150,7 @@ public class TetrisGame {
                 swingTimer.start();
                 nextBlockPanel.updateNextBlock(getBlock(dBlock,2,2));
             }
+            Thread.sleep(1);
 
         }
 
