@@ -139,4 +139,7 @@ public abstract class Block {
             gridBlockField[p.y][p.x].setLock(true);
         }
     }
+    public Point getBias(){
+        return bias;
+    }
 }

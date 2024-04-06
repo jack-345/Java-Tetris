@@ -5,7 +5,7 @@ import java.util.ArrayList;
 public abstract class Controller {
     protected Block controlBlock;
     protected GridPad gridPad;
-    ArrayList<GUIListener> GUIListener;
+    protected TetrisGame game;
 
     public Controller(GridPad gridPad) {
         this.controlBlock = gridPad.blockOnControl;
@@ -17,5 +17,11 @@ public abstract class Controller {
     }
 
     public void listenForKeyPressed() {
+    }
+    public void stopListen(){
+
+    }
+    public void continueListen(){
+
     }
 }

@@ -8,10 +8,10 @@ import java.io.File;
 import java.io.IOException;
 
 public class GridBlockLayer extends JPanel implements GUIListener {
-    private GridPad gridPad;
-    private BufferedImage blockImage;
-    private BufferedImage backGroundImage;
-    private BufferedImage breakImage;
+    protected GridPad gridPad;
+    protected BufferedImage blockImage;
+    protected BufferedImage backGroundImage;
+    protected BufferedImage breakImage;
 
     public GridBlockLayer(GridPad gridPad) {
         super();
