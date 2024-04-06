@@ -13,9 +13,9 @@ public class TetrisGame {
     private Controller controller;
     private ArrayList<Integer> lineDeleteBuffer;
     private GridPad gridPad;
-    private JLabel nextBlockLabel;
     private JLabel scoreLabel;
     private Integer score = 0;
+    private boolean ifPause=false;
 
     public TetrisGame() {
         lineDeleteBuffer = new ArrayList<Integer>();
@@ -39,11 +39,7 @@ public class TetrisGame {
         application.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         application.setLayout(null);
 
-        // Information panel for next block
 
-
-        nextBlockLabel = new JLabel();
-        //nextBlockPanel.add(nextBlockLabel);
 
         // Information panel for score
         JPanel scorePanel = new JPanel();
@@ -59,7 +55,7 @@ public class TetrisGame {
         int x = (application.getWidth() - grid.getWidth()) / 2;
         int y = 32;//(application.getHeight() - grid.getHeight()) / 2;
         layerPanel.setLocation(x, y);
-
+        // Information panel for next block
         NextBlockPanel nextBlockPanel = new NextBlockPanel();
         nextBlockPanel.setBounds(350, 50, 100, 100);
         nextBlockPanel.setBorder(BorderFactory.createTitledBorder("Next Block"));
@@ -76,8 +72,7 @@ public class TetrisGame {
         moreBackGroundlayer.show(1);
         backGroundLayer.show(0);
         application.add(layerPanel);
-
-        controller = new KeyboardController(application, gridPad);
+        controller = new KeyboardController(application,this, gridPad);
         controller.listenForKeyPressed();
         //trying to center the grid, not currently working
 
@@ -106,7 +101,7 @@ public class TetrisGame {
             Integer dBlock = rand.nextInt(7);
             Integer wBlock = 0;
             //If the Timer doesn't end, i.e. the squares don't collide, then don't execute the following statement.
-            if (!swingTimer.isRunning()) {
+            if (!swingTimer.isRunning()&&!ifPause) {
 
                 wBlock = temp;
                 temp = dBlock;
@@ -115,7 +110,6 @@ public class TetrisGame {
 
                 Block ter=getBlock(wBlock,spawnX,spawnY);
                 // Display next block
-                nextBlockLabel.setText("Next Block: " + dBlock.toString());
 
 
                 controller.changeTarget(ter);
@@ -210,5 +204,13 @@ public class TetrisGame {
         }
         return base;
     }
-
+    public void setPause(boolean pause){
+        if(pause) {
+            swingTimer.stop();
+        }
+        else {
+            swingTimer.start();
+        }
+        ifPause=pause;
+    }
 }
