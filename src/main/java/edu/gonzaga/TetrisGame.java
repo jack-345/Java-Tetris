@@ -40,13 +40,10 @@ public class TetrisGame {
         application.setLayout(null);
 
         // Information panel for next block
-        JPanel nextBlockPanel = new JPanel();
-        nextBlockPanel.setBounds(350, 50, 100, 100);
-        nextBlockPanel.setBorder(BorderFactory.createTitledBorder("Next Block"));
-        application.add(nextBlockPanel);
+
 
         nextBlockLabel = new JLabel();
-        nextBlockPanel.add(nextBlockLabel);
+        //nextBlockPanel.add(nextBlockLabel);
 
         // Information panel for score
         JPanel scorePanel = new JPanel();
@@ -63,6 +60,10 @@ public class TetrisGame {
         int y = 32;//(application.getHeight() - grid.getHeight()) / 2;
         layerPanel.setLocation(x, y);
 
+        NextBlockPanel nextBlockPanel = new NextBlockPanel();
+        nextBlockPanel.setBounds(350, 50, 100, 100);
+        nextBlockPanel.setBorder(BorderFactory.createTitledBorder("Next Block"));
+        application.add(nextBlockPanel,null);
         BackGroundLayer moreBackGroundlayer = new BackGroundLayer(application.getWidth(),application.getHeight());
         BackGroundLayer backGroundLayer= new BackGroundLayer(180,650);
         backGroundLayer.setLocation(x-15,y-25);
@@ -113,7 +114,6 @@ public class TetrisGame {
                 System.out.printf("What Block Next: %d\n", dBlock);
 
                 Block ter=getBlock(wBlock,spawnX,spawnY);
-
                 // Display next block
                 nextBlockLabel.setText("Next Block: " + dBlock.toString());
 
@@ -148,7 +148,7 @@ public class TetrisGame {
                 });
 
                 swingTimer.start();
-
+                nextBlockPanel.updateNextBlock(getBlock(dBlock,2,2));
             }
 
         }
