@@ -13,6 +13,9 @@ public class TetrisGame {
     private Controller controller;
     private ArrayList<Integer> lineDeleteBuffer;
     private GridPad gridPad;
+    private JLabel nextBlockLabel;
+    private JLabel scoreLabel;
+    private Integer score = 0;
 
     public TetrisGame() {
         lineDeleteBuffer = new ArrayList<Integer>();
@@ -35,6 +38,24 @@ public class TetrisGame {
         application.setVisible(true);
         application.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         application.setLayout(null);
+
+        // Information panel for next block
+        JPanel nextBlockPanel = new JPanel();
+        nextBlockPanel.setBounds(350, 50, 100, 100);
+        nextBlockPanel.setBorder(BorderFactory.createTitledBorder("Next Block"));
+        application.add(nextBlockPanel);
+
+        nextBlockLabel = new JLabel();
+        nextBlockPanel.add(nextBlockLabel);
+
+        // Information panel for score
+        JPanel scorePanel = new JPanel();
+        scorePanel.setBounds(350, 200, 100, 100);
+        scorePanel.setBorder(BorderFactory.createTitledBorder("Score"));
+        application.add(scorePanel);
+
+        scoreLabel = new JLabel(score.toString());
+        scorePanel.add(scoreLabel);
 
 
         JLayeredPane layerPanel=new JLayeredPane();
@@ -64,6 +85,7 @@ public class TetrisGame {
         });
         int spawnX = 4;
         int spawnY=1;
+
         breakEffectTimer= new javax.swing.Timer(800, ev -> {
                if(!lineDeleteBuffer.isEmpty()) {
                    for (Integer aline : lineDeleteBuffer) {
@@ -72,6 +94,7 @@ public class TetrisGame {
                 }
                 gridPad.updateGame();
                    System.out.printf("Add score: %d\n",countScore(lineDeleteBuffer.size()));
+                   score += countScore(lineDeleteBuffer.size());
                 lineDeleteBuffer.clear();
             }
         });
@@ -91,6 +114,10 @@ public class TetrisGame {
 
                 Block ter=getBlock(wBlock,spawnX,spawnY);
 
+                // Display next block
+                nextBlockLabel.setText("Next Block: " + dBlock.toString());
+
+
                 controller.changeTarget(ter);
                 gridPad.addABlock(ter);
                 ter.addToGameListeners(gridPad);
@@ -98,6 +125,8 @@ public class TetrisGame {
                 swingTimer = new Timer(runTime, e -> {
 
                     if (gridPad.movingCheck()[1]) {
+                        // Display score
+                        scoreLabel.setText("Score: " + score.toString());
                         ter.step();
                     } else {
                         ter.lock();
@@ -161,9 +190,22 @@ public class TetrisGame {
         return true;
     }
     public int countScore(int lines){
-        int base=50;
-        for(int i=1;i<=lines;i++){
-            base*=i;
+        int base=0;
+        switch (lines) {
+            case 1:
+                base = 100 * lines;
+                break;
+            case 2:
+                base = 300 * lines;
+                break;
+            case 3:
+                base = 500 * lines;
+                break;
+            case 4:
+                base = 800 * lines;
+                break;
+            default:
+                System.out.println("Invalid number of lines cleared.");
         }
         return base;
     }
