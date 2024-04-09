@@ -16,7 +16,7 @@ import edu.gonzaga.Tetris;
 public class MainMenuTest{
     TetrisGame game = new TetrisGame();
     public static void main(String[] args) throws IOException, InterruptedException {
-
+        MainMenuTest menu = new MainMenuTest();
     }
 
     public MainMenuTest(){
