@@ -14,8 +14,17 @@ import edu.gonzaga.TetrisGame;
 import edu.gonzaga.Tetris;
 
 public class MainMenuTest{
-    
+    TetrisGame game = new TetrisGame();
     public static void main(String[] args) throws IOException, InterruptedException {
+
+    }
+
+    public MainMenuTest(){
+        //create but dont show the main menu frame
+        //create but dont show the main game window frame
+    }
+
+    public void startGame() throws IOException, InterruptedException {
         JFrame mainMenuFrame = new JFrame("Main Menu");
         mainMenuFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         mainMenuFrame.setSize(770, 820);
@@ -28,13 +37,17 @@ public class MainMenuTest{
             public void actionPerformed(ActionEvent e) {
                 if (e.getSource() == playButton) {
                     mainMenuFrame.setVisible(false);
-                    TetrisGame game = new TetrisGame();
+                    //TetrisGame game = new TetrisGame();
                     try {
+
+                        //start a timer to handoff to full game
                         game.startGame();
+                        //application.setVisible(true);
                     } catch (IOException | InterruptedException e1) {
                         // TODO Auto-generated catch block
                         e1.printStackTrace();
                     }
+                    System.out.println("button hit!");
                 }
                 
             }
@@ -64,5 +77,7 @@ public class MainMenuTest{
         mainMenuFrame.add(panel);
         mainMenuFrame.setVisible(true);
     }
+
+
 
 }

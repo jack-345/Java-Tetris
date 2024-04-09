@@ -35,7 +35,7 @@ public class TetrisGame {
         gridPad.addGUIListener(grid);
         //One can try replacing these numbers with variables.
         application.setSize(500, 700);
-        application.setVisible(true);
+        application.setVisible(true); //should be set to false
         application.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         application.setLayout(null);
 
@@ -96,7 +96,13 @@ public class TetrisGame {
         });
         breakEffectTimer.start();
 
+        
+        //call in a different method later
+        //make window visible, then start a timer that will call the code below
         int temp = rand.nextInt(7);
+
+        //replace with a timer callback as the method called
+        //timer set to however long wanted
         while (true) {
             Integer dBlock = rand.nextInt(7);
             Integer wBlock = 0;
