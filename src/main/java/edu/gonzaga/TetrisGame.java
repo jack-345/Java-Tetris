@@ -18,11 +18,12 @@ public class TetrisGame {
     JPanel scorePanel = new JPanel(); // Information panel for score
     private JLabel scoreLabel; // An information panel that shows the current score
     NextBlockPanel nextBlockPanel = new NextBlockPanel(); // An information panel that shows the next appearing block
+    JLayeredPane layerPanel = new JLayeredPane(); //New layer to place the ghost block into
     private Integer score = 0; // A variable to hold the current score, added to scoreLabel
     private boolean ifPause=false; // A variable to determine if the game is in a paused state or not
     private boolean ifGameEnd=false;
 
-    // A contructor method that initializes lineDeleteBuffer
+    // A constructor method that initializes lineDeleteBuffer
     public TetrisGame() {
         lineDeleteBuffer = new ArrayList<Integer>();
     }
@@ -41,35 +42,31 @@ public class TetrisGame {
         grid.setSize(150, 600);
         //GUI listener can update the GUI interface.
         gridPad.addGUIListener(grid);
+        GhostBlockLayer anime = new GhostBlockLayer(grid, gridPad);
+        layerPanel.add(anime,JLayeredPane.MODAL_LAYER); //add the amine layer to the layerPanel
 
         scoreLabel = new JLabel(score.toString());
 
         adjustApplication();
         adjustScorePanel();
+
+        // Height calculations for placing new objects onto an application screen
         int x = (application.getWidth() - grid.getWidth()) / 2;
         int y = 32;
-        JLayeredPane layerPanel = new JLayeredPane(); //New layer to place the ghost block into
-        layerPanel.setLocation(x, y);
-
-
+        adjustLayerPanel(x, y, grid);
 
         // Information panel for next block
-
         nextBlockPanel.setBounds(350, 50, 100, 100);
         nextBlockPanel.setBorder(BorderFactory.createTitledBorder("Next Block"));
-        application.add(nextBlockPanel,null);
+
         BackGroundLayer moreBackGroundlayer = new BackGroundLayer(application.getWidth(),application.getHeight());
         BackGroundLayer backGroundLayer= new BackGroundLayer(180,650);
         backGroundLayer.setLocation(x-15,y-25);
         moreBackGroundlayer.add(backGroundLayer,JLayeredPane.DEFAULT_LAYER);
-        layerPanel.setSize(grid.getSize());
-        layerPanel.add(grid, JLayeredPane.PALETTE_LAYER);
-        GhostBlockLayer anime = new GhostBlockLayer(grid, gridPad);
-        layerPanel.add(anime,JLayeredPane.MODAL_LAYER); //add the amine layer to the layerPanel
+
         application.add(moreBackGroundlayer);
         moreBackGroundlayer.show(1);
         backGroundLayer.show(0);
-        application.add(layerPanel);
         controller = new KeyboardController(application,this, gridPad);
         controller.listenForKeyPressed();
 
@@ -106,8 +103,6 @@ public class TetrisGame {
                 System.out.printf("What Block Next: %d\n", dBlock);
 
                 Block ter=getBlock(wBlock,spawnX,spawnY);
-                // Display next block
-
 
                 controller.changeTarget(ter);
                 gridPad.addABlock(ter);
@@ -204,6 +199,7 @@ public class TetrisGame {
         }
         return base;
     }
+
     public void setPause(boolean pause){
         if(pause) {
             gameTimer.stop();
@@ -222,6 +218,8 @@ public class TetrisGame {
         application.setLayout(null);
 
         application.add(scorePanel);
+        application.add(nextBlockPanel,null);
+        application.add(layerPanel);
     }
 
     public void adjustScorePanel () {
@@ -231,6 +229,12 @@ public class TetrisGame {
     }
     public void endGame(){
         ifGameEnd=true;
+    }
+
+    public void adjustLayerPanel (int x, int y, GridBlockLayer grid) {
+        layerPanel.setLocation(x, y);
+        layerPanel.setSize(grid.getSize());
+        layerPanel.add(grid, JLayeredPane.PALETTE_LAYER);
     }
 
 }
