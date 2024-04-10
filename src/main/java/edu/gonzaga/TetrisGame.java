@@ -20,6 +20,7 @@ public class TetrisGame {
     NextBlockPanel nextBlockPanel = new NextBlockPanel(); // An information panel that shows the next appearing block
     private Integer score = 0; // A variable to hold the current score, added to scoreLabel
     private boolean ifPause=false; // A variable to determine if the game is in a paused state or not
+    private boolean ifGameEnd=false;
 
     // A contructor method that initializes lineDeleteBuffer
     public TetrisGame() {
@@ -76,7 +77,7 @@ public class TetrisGame {
         gameTimer = new Timer(500, ev -> {
         });
         int spawnX = 4;
-        int spawnY=1;
+        int spawnY=0;
 
         breakEffectTimer= new javax.swing.Timer(800, ev -> {
                if(!lineDeleteBuffer.isEmpty()) {
@@ -93,7 +94,7 @@ public class TetrisGame {
         breakEffectTimer.start();
 
         int temp = rand.nextInt(7);
-        while (true) {
+        while (!ifGameEnd) {
             Integer dBlock = rand.nextInt(7);
             Integer wBlock = 0;
             //If the Timer doesn't end, i.e. the squares don't collide, then don't execute the following statement.
@@ -112,6 +113,9 @@ public class TetrisGame {
                 gridPad.addABlock(ter);
                 ter.addToGameListeners(gridPad);
                 anime.setBlock(ter);
+                if(!gridPad.movingCheck()[1]){
+                    endGame();
+                }
                 gameTimer = new Timer(runTime, e -> {
 
                     if (gridPad.movingCheck()[1]) {
@@ -224,6 +228,9 @@ public class TetrisGame {
         scorePanel.setBounds(350, 200, 100, 100);
         scorePanel.setBorder(BorderFactory.createTitledBorder("Score"));
         scorePanel.add(scoreLabel);
+    }
+    public void endGame(){
+        ifGameEnd=true;
     }
 
 }
