@@ -96,13 +96,11 @@ public class TetrisGame {
         });
         breakEffectTimer.start();
 
-        
-        //call in a different method later
-        //make window visible, then start a timer that will call the code below
+        // Call in a a different method later!
+        // Make window visible, then start timer that will call the code below every 1ms
         int temp = rand.nextInt(7);
 
-        //replace with a timer callback as the method called
-        //timer set to however long wanted
+        // Replace this with a timer callback as the method called
         while (true) {
             Integer dBlock = rand.nextInt(7);
             Integer wBlock = 0;
