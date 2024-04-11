@@ -42,24 +42,8 @@ public class TetrisGame {
         grid.setSize(150, 600);
         //GUI listener can update the GUI interface.
         gridPad.addGUIListener(grid);
-<<<<<<< HEAD
-        //One can try replacing these numbers with variables.
-        application.setSize(500, 700);
-        application.setVisible(true); //should be set to false
-        application.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        application.setLayout(null);
-
-
-
-        // Information panel for score
-        JPanel scorePanel = new JPanel();
-        scorePanel.setBounds(350, 200, 100, 100);
-        scorePanel.setBorder(BorderFactory.createTitledBorder("Score"));
-        application.add(scorePanel);
-=======
         GhostBlockLayer anime = new GhostBlockLayer(grid, gridPad);
         layerPanel.add(anime,JLayeredPane.MODAL_LAYER); //add the amine layer to the layerPanel
->>>>>>> main
 
         scoreLabel = new JLabel(score.toString());
 
@@ -109,13 +93,7 @@ public class TetrisGame {
         // Call in a a different method later!
         // Make window visible, then start timer that will call the code below every 1ms
         int temp = rand.nextInt(7);
-<<<<<<< HEAD
-
-        // Replace this with a timer callback as the method called
-        while (true) {
-=======
         while (!ifGameEnd) {
->>>>>>> main
             Integer dBlock = rand.nextInt(7);
             Integer wBlock = 0;
             //If the Timer doesn't end, i.e. the squares don't collide, then don't execute the following statement.
