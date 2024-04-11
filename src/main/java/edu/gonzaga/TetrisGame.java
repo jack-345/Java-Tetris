@@ -7,25 +7,34 @@ import java.util.ArrayList;
 import java.util.Random;
 
 public class TetrisGame {
-    JFrame application = new JFrame(); // creates a new JFrame
-    private Timer swingTimer;
-    private Timer breakEffectTimer;
+    JFrame application = new JFrame(); // creates a new JFrame, houses all displays currently
+    private Timer gameTimer; // creates a new timer to run the main grid, controls timing between block movement actions
+    private Timer breakEffectTimer; // creates a new timer to determine how often to check if a line is broken and to perform the lineBroken actions
+    // creates a controller, later initialized as a keyboardController, able to check for key input and change the location of the "active" block
     private Controller controller;
-    private ArrayList<Integer> lineDeleteBuffer;
-    private GridPad gridPad;
-    private JLabel scoreLabel;
-    private Integer score = 0;
-    private boolean ifPause=false;
+    // an arraylist to hold Y values in our grid to be cleared, is filled by checking how many lines are all "locked" left to right
+    private ArrayList<Integer> lineDeleteBuffer; // Holds the coordinates of the lines to be deleted, can be used for scoring
+    private GridPad gridPad; // Initializes a new gridPad, a 2d array of gridBlocks which have different states that can be set
+    JPanel scorePanel = new JPanel(); // Information panel for score
+    private JLabel scoreLabel; // An information panel that shows the current score
+    NextBlockPanel nextBlockPanel = new NextBlockPanel(); // An information panel that shows the next appearing block
+    JLayeredPane layerPanel = new JLayeredPane(); //New layer to place the ghost block into
+    private Integer score = 0; // A variable to hold the current score, added to scoreLabel
+    private boolean ifPause=false; // A variable to determine if the game is in a paused state or not
+    private boolean ifGameEnd=false;
 
+    // A constructor method that initializes lineDeleteBuffer
     public TetrisGame() {
         lineDeleteBuffer = new ArrayList<Integer>();
     }
 
+    //The main method of a game, runs all methods
     public void startGame() throws IOException, InterruptedException {
-        //set a timer
+        //set a timer, changes the amount of time between updates to the block's position, in milliseconds
         Integer runTime = 100;
         //Create a gridPad
         this.gridPad = new GridPad(10, 40);
+
         Random rand = new Random();
         rand.setSeed(System.currentTimeMillis());
         //GridBlockLayer is a JPanel
@@ -33,6 +42,7 @@ public class TetrisGame {
         grid.setSize(150, 600);
         //GUI listener can update the GUI interface.
         gridPad.addGUIListener(grid);
+<<<<<<< HEAD
         //One can try replacing these numbers with variables.
         application.setSize(500, 700);
         application.setVisible(true); //should be set to false
@@ -46,41 +56,41 @@ public class TetrisGame {
         scorePanel.setBounds(350, 200, 100, 100);
         scorePanel.setBorder(BorderFactory.createTitledBorder("Score"));
         application.add(scorePanel);
+=======
+        GhostBlockLayer anime = new GhostBlockLayer(grid, gridPad);
+        layerPanel.add(anime,JLayeredPane.MODAL_LAYER); //add the amine layer to the layerPanel
+>>>>>>> main
 
         scoreLabel = new JLabel(score.toString());
-        scorePanel.add(scoreLabel);
 
+        adjustApplication();
+        adjustScorePanel();
 
-        JLayeredPane layerPanel=new JLayeredPane();
+        // Height calculations for placing new objects onto an application screen
         int x = (application.getWidth() - grid.getWidth()) / 2;
-        int y = 32;//(application.getHeight() - grid.getHeight()) / 2;
-        layerPanel.setLocation(x, y);
+        int y = 32;
+        adjustLayerPanel(x, y, grid);
+
         // Information panel for next block
-        NextBlockPanel nextBlockPanel = new NextBlockPanel();
         nextBlockPanel.setBounds(350, 50, 100, 100);
         nextBlockPanel.setBorder(BorderFactory.createTitledBorder("Next Block"));
-        application.add(nextBlockPanel,null);
+
         BackGroundLayer moreBackGroundlayer = new BackGroundLayer(application.getWidth(),application.getHeight());
         BackGroundLayer backGroundLayer= new BackGroundLayer(180,650);
         backGroundLayer.setLocation(x-15,y-25);
         moreBackGroundlayer.add(backGroundLayer,JLayeredPane.DEFAULT_LAYER);
-        layerPanel.setSize(grid.getSize());
-        layerPanel.add(grid, JLayeredPane.PALETTE_LAYER);
-        GhostBlockLayer anime = new GhostBlockLayer(grid, gridPad);
-        layerPanel.add(anime,JLayeredPane.MODAL_LAYER); //add the amine layer to the layerPanel
+
         application.add(moreBackGroundlayer);
         moreBackGroundlayer.show(1);
         backGroundLayer.show(0);
-        application.add(layerPanel);
         controller = new KeyboardController(application,this, gridPad);
         controller.listenForKeyPressed();
-        //trying to center the grid, not currently working
 
         //Setting up a Timer
-        swingTimer = new Timer(500, ev -> {
+        gameTimer = new Timer(500, ev -> {
         });
         int spawnX = 4;
-        int spawnY=1;
+        int spawnY=0;
 
         breakEffectTimer= new javax.swing.Timer(800, ev -> {
                if(!lineDeleteBuffer.isEmpty()) {
@@ -99,13 +109,17 @@ public class TetrisGame {
         // Call in a a different method later!
         // Make window visible, then start timer that will call the code below every 1ms
         int temp = rand.nextInt(7);
+<<<<<<< HEAD
 
         // Replace this with a timer callback as the method called
         while (true) {
+=======
+        while (!ifGameEnd) {
+>>>>>>> main
             Integer dBlock = rand.nextInt(7);
             Integer wBlock = 0;
             //If the Timer doesn't end, i.e. the squares don't collide, then don't execute the following statement.
-            if (!swingTimer.isRunning()&&!ifPause) {
+            if (!gameTimer.isRunning()&&!ifPause) {
 
                 wBlock = temp;
                 temp = dBlock;
@@ -113,14 +127,15 @@ public class TetrisGame {
                 System.out.printf("What Block Next: %d\n", dBlock);
 
                 Block ter=getBlock(wBlock,spawnX,spawnY);
-                // Display next block
-
 
                 controller.changeTarget(ter);
                 gridPad.addABlock(ter);
                 ter.addToGameListeners(gridPad);
                 anime.setBlock(ter);
-                swingTimer = new Timer(runTime, e -> {
+                if(!gridPad.movingCheck()[1]){
+                    endGame();
+                }
+                gameTimer = new Timer(runTime, e -> {
 
                     if (gridPad.movingCheck()[1]) {
                         // Display score
@@ -128,7 +143,7 @@ public class TetrisGame {
                         ter.step();
                     } else {
                         ter.lock();
-                        swingTimer.stop();
+                        gameTimer.stop();
                         for (int aLine = 0; aLine < gridPad.getHeight(); aLine++) {
 
                             if (gridPad.lineCheckMZ(aLine)) {
@@ -145,7 +160,7 @@ public class TetrisGame {
                     }
                 });
 
-                swingTimer.start();
+                gameTimer.start();
                 nextBlockPanel.updateNextBlock(getBlock(dBlock,2,2));
             }
             Thread.sleep(1);
@@ -208,13 +223,42 @@ public class TetrisGame {
         }
         return base;
     }
+
     public void setPause(boolean pause){
         if(pause) {
-            swingTimer.stop();
+            gameTimer.stop();
         }
         else {
-            swingTimer.start();
+            gameTimer.start();
         }
         ifPause=pause;
     }
+
+    //a method to adjust and populate the application panel
+    public void adjustApplication () {
+        application.setSize(500, 700);
+        application.setVisible(true);
+        application.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        application.setLayout(null);
+
+        application.add(scorePanel);
+        application.add(nextBlockPanel,null);
+        application.add(layerPanel);
+    }
+
+    public void adjustScorePanel () {
+        scorePanel.setBounds(350, 200, 100, 100);
+        scorePanel.setBorder(BorderFactory.createTitledBorder("Score"));
+        scorePanel.add(scoreLabel);
+    }
+    public void endGame(){
+        ifGameEnd=true;
+    }
+
+    public void adjustLayerPanel (int x, int y, GridBlockLayer grid) {
+        layerPanel.setLocation(x, y);
+        layerPanel.setSize(grid.getSize());
+        layerPanel.add(grid, JLayeredPane.PALETTE_LAYER);
+    }
+
 }
