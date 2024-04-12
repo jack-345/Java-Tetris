@@ -39,6 +39,7 @@ public abstract class Block {
                     shape.set(i, new Point(x, y));
                 }
             }
+            notifyGameListeners(new BlockEvent(BlockEvent.ROTATE_RIGHT));
         } else if (direction < 0) {
             for (int r = 0; r < Math.abs(direction); r++) {
                 for (int i = 0; i < shape.size(); i++) {
@@ -48,6 +49,7 @@ public abstract class Block {
                     shape.set(i, new Point(x, y));
                 }
             }
+            notifyGameListeners(new BlockEvent(BlockEvent.ROTATE_LEFT));
         } else {
             return;
         }
@@ -55,7 +57,7 @@ public abstract class Block {
             gridBlockField[p.y][p.x].setFill(true);
             gridBlockField[p.y][p.x].setColor(color);
         }
-        notifyGameListeners();
+
     }
 
     //public void rotateCountClockwise(){}
@@ -69,7 +71,7 @@ public abstract class Block {
             gridBlockField[p.y][p.x].setFill(true);
             gridBlockField[p.y][p.x].setColor(color);
         }
-        notifyGameListeners();
+        notifyGameListeners(new BlockEvent(BlockEvent.MOVE_LEFT));
     }
 
     public void moveRight() {
@@ -82,7 +84,7 @@ public abstract class Block {
             gridBlockField[p.y][p.x].setFill(true);
             gridBlockField[p.y][p.x].setColor(color);
         }
-        notifyGameListeners();
+        notifyGameListeners(new BlockEvent(BlockEvent.MOVE_RIGHT));
     }
 
     //Step means to move down. The listener is notified every time it moves to update the display.
@@ -96,16 +98,16 @@ public abstract class Block {
             gridBlockField[p.y][p.x].setFill(true);
             gridBlockField[p.y][p.x].setColor(color);
         }
-        notifyGameListeners();
+        notifyGameListeners(new BlockEvent(BlockEvent.MOVE_DOWN));
     }
 
     public void addToGameListeners(GameListener listener) {
         gameListeners.add(listener);
     }
 
-    public void notifyGameListeners() {
+    public void notifyGameListeners(Event e) {
         for (GameListener listener : gameListeners) {
-            listener.updateGame();
+            listener.updateGame(e);
         }
     }
 
