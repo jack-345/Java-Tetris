@@ -82,7 +82,7 @@ public class TetrisGame {
                     gridPad.clearLine(aline);
 
                 }
-                gridPad.updateGame();
+                gridPad.updateGame(new GridEvent(GridEvent.DELETED));
                    System.out.printf("Add score: %d\n",countScore(lineDeleteBuffer.size()));
                    score += countScore(lineDeleteBuffer.size());
                 lineDeleteBuffer.clear();
@@ -132,7 +132,7 @@ public class TetrisGame {
                                     gridPad.getBlock(w, aLine).setDeleted(true);
                                 }
                             }
-                            gridPad.updateGame();
+                            gridPad.updateGame(new GridEvent(GridEvent.ON_DELETE));
 
                         }
                     }

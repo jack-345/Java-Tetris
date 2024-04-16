@@ -209,15 +209,15 @@ public class GridPad implements GameListener {
         return height;
     }
 
-    public void notifyGUIListeners() {
+    public void notifyGUIListeners(Event e) {
         for (GUIListener listener : guiListeners) {
-            listener.update();
+            listener.update(e);
         }
     }
 
     @Override
-    public void updateGame() {
-        notifyGUIListeners();
+    public void updateGame(Event e) {
+        notifyGUIListeners(e);
     }
 
 }

@@ -1,5 +1,5 @@
 package edu.gonzaga;
 
 public interface GameListener {
-    void updateGame();
+    void updateGame(Event e);
 }

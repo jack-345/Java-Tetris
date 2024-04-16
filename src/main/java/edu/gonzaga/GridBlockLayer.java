@@ -66,7 +66,7 @@ public class GridBlockLayer extends JPanel implements GUIListener {
     }
 
     @Override
-    public void update() {
+    public void update(Event e) {
         repaint();
     }
 }
