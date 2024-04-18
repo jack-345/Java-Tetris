@@ -114,6 +114,7 @@ public class TetrisGame {
                 anime.setBlock(ter);
                 if(!gridPad.movingCheck()[1]){
                     endGame();
+                    runTimer.stop();
                 }
                 Block finalTer = ter;
                 gameTimer = new Timer(runTime, e -> {
