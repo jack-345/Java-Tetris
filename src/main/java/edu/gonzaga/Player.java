@@ -4,6 +4,11 @@ public class Player {
     int score;
     String name;
 
+    public Player() {
+        this.name = "default";
+        this.score= 0;
+    }
+
     public String getName() {
         return name;
     }
