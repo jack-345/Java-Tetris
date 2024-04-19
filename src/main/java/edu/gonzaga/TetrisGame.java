@@ -5,12 +5,14 @@ import java.awt.*;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Random;
+import java.util.concurrent.atomic.AtomicInteger;
 
 public class TetrisGame {
     JFrame application = new JFrame(); // creates a new JFrame, houses all displays currently
     private Timer gameTimer; // creates a new timer to run the main grid, controls timing between block movement actions
     private Timer breakEffectTimer; // creates a new timer to determine how often to check if a line is broken and to perform the lineBroken actions
     // creates a controller, later initialized as a keyboardController, able to check for key input and change the location of the "active" block
+    Timer runTimer;
     private Controller controller;
     // an arraylist to hold Y values in our grid to be cleared, is filled by checking how many lines are all "locked" left to right
     private ArrayList<Integer> lineDeleteBuffer; // Holds the coordinates of the lines to be deleted, can be used for scoring
@@ -43,6 +45,8 @@ public class TetrisGame {
         //GUI listener can update the GUI interface.
         gridPad.addGUIListener(grid);
         GhostBlockLayer anime = new GhostBlockLayer(grid, gridPad);
+        Block tempTer=getBlock(1,0,0);
+        anime.setBlock(tempTer);
         layerPanel.add(anime,JLayeredPane.MODAL_LAYER); //add the amine layer to the layerPanel
 
         scoreLabel = new JLabel(score.toString());
@@ -90,21 +94,26 @@ public class TetrisGame {
         });
         breakEffectTimer.start();
 
+<<<<<<< HEAD
         // Call in a a different method later!
         // Make window visible, then start timer that will call the code below every 1ms
         int temp = rand.nextInt(7);
         while (!ifGameEnd) {
+=======
+        AtomicInteger temp = new AtomicInteger(rand.nextInt(7));
+        runTimer = new Timer(1,ev->{
+>>>>>>> main
             Integer dBlock = rand.nextInt(7);
             Integer wBlock = 0;
             //If the Timer doesn't end, i.e. the squares don't collide, then don't execute the following statement.
             if (!gameTimer.isRunning()&&!ifPause) {
 
-                wBlock = temp;
-                temp = dBlock;
+                wBlock = temp.get();
+                temp.set(dBlock);
                 System.out.printf("What Block: %d\n", wBlock);
                 System.out.printf("What Block Next: %d\n", dBlock);
 
-                Block ter=getBlock(wBlock,spawnX,spawnY);
+                Block ter=getBlock(wBlock, spawnX, spawnY);
 
                 controller.changeTarget(ter);
                 gridPad.addABlock(ter);
@@ -112,15 +121,17 @@ public class TetrisGame {
                 anime.setBlock(ter);
                 if(!gridPad.movingCheck()[1]){
                     endGame();
+                    runTimer.stop();
                 }
+                Block finalTer = ter;
                 gameTimer = new Timer(runTime, e -> {
 
                     if (gridPad.movingCheck()[1]) {
                         // Display score
                         scoreLabel.setText("Score: " + score.toString());
-                        ter.step();
+                        finalTer.step();
                     } else {
-                        ter.lock();
+                        finalTer.lock();
                         gameTimer.stop();
                         for (int aLine = 0; aLine < gridPad.getHeight(); aLine++) {
 
@@ -141,9 +152,10 @@ public class TetrisGame {
                 gameTimer.start();
                 nextBlockPanel.updateNextBlock(getBlock(dBlock,2,2));
             }
-            Thread.sleep(1);
+            //Thread.sleep(1);
 
-        }
+        });
+        runTimer.start();
 
     }
     private Block getBlock(int blockID,int spawnX,int spawnY){
