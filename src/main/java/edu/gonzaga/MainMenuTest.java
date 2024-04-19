@@ -153,9 +153,7 @@ public class MainMenuTest{
         */
 
         //attempting to add StartMenu JPanel to menu
-        
-
-
+        //works and button is clickable but no functionality to start the game just yet
         mainMenuFrame.add(menu);
         mainMenuFrame.setVisible(true);
     }
