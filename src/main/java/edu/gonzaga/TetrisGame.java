@@ -94,15 +94,8 @@ public class TetrisGame {
         });
         breakEffectTimer.start();
 
-<<<<<<< HEAD
-        // Call in a a different method later!
-        // Make window visible, then start timer that will call the code below every 1ms
-        int temp = rand.nextInt(7);
-        while (!ifGameEnd) {
-=======
         AtomicInteger temp = new AtomicInteger(rand.nextInt(7));
         runTimer = new Timer(1,ev->{
->>>>>>> main
             Integer dBlock = rand.nextInt(7);
             Integer wBlock = 0;
             //If the Timer doesn't end, i.e. the squares don't collide, then don't execute the following statement.

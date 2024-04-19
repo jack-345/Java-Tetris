@@ -13,6 +13,7 @@ import edu.gonzaga.Tetris;
 
 public class MainMenuTest{
     TetrisGame game = new TetrisGame();
+    StartMenu menu = new StartMenu();
     public static void main(String[] args) throws IOException, InterruptedException {
         MainMenuTest menu = new MainMenuTest();
         menu.startGame();
@@ -87,9 +88,12 @@ public class MainMenuTest{
             }
         });
 
+        /* 
         panel.add(playButton);
         panel.add(settingsButton);
         panel.add(tutorialButton);
+        */
+
         panel.setLayout(new GridLayout(3, 1));
 
         mainMenuFrame.add(panel);
@@ -99,7 +103,7 @@ public class MainMenuTest{
     void createStartMenu() {
         JFrame mainMenuFrame = new JFrame("Main Menu");
         mainMenuFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        mainMenuFrame.setSize(770, 820);
+        mainMenuFrame.setSize(500, 700);
 
         JPanel panel = new JPanel();
         
@@ -141,12 +145,18 @@ public class MainMenuTest{
             }
         });
 
+        /* 
         panel.add(playButton);
         panel.add(settingsButton);
         panel.add(tutorialButton);
         panel.setLayout(new GridLayout(3, 1));
+        */
 
-        mainMenuFrame.add(panel);
+        //attempting to add StartMenu JPanel to menu
+        
+
+
+        mainMenuFrame.add(menu);
         mainMenuFrame.setVisible(true);
     }
 }
