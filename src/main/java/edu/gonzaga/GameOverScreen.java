@@ -1,7 +1,6 @@
 package edu.gonzaga;
 
 import javax.imageio.ImageIO;
-import javax.imageio.ImageWriter;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.image.BufferedImage;
@@ -10,10 +9,11 @@ import java.io.IOException;
 
 public class GameOverScreen extends JFrame {
     private JLabel gameOverLabel;
-    private JTextField textField;
-    private JLabel integerLabel;
+    private JLabel playerNameLabel; // Player name label
+    private JLabel scoreLabel; // Score label
+    private JLabel playerNameValueLabel; // Label for player name value
+    private JLabel scoreValueLabel; // Label for score value
     protected BufferedImage gameOverImage;
-
 
     public GameOverScreen() {
         setTitle("Game Over");
@@ -38,22 +38,30 @@ public class GameOverScreen extends JFrame {
         gameOverLabel.setIcon(icon);
         mainPanel.add(gameOverLabel, BorderLayout.NORTH);
 
-        //create new player
+        // Create new player
         Player testPlayer = new Player();
         testPlayer.setScore(1000);
-        textField = new JTextField(20);
-        textField.setText(Integer.toString(testPlayer.getScore()));
+        testPlayer.setName("John");
 
-        // Text Box Section
-        JPanel textBoxPanel = new JPanel();
-        textBoxPanel.add(textField);
-        mainPanel.add(textBoxPanel, BorderLayout.CENTER);
+        // Player Name Section
+        JPanel playerNamePanel = new JPanel();
+        playerNameLabel = new JLabel("Player Name: ");
+        playerNameValueLabel = new JLabel(testPlayer.getName());
+        playerNameLabel.setFont(new Font("Arial", Font.BOLD, 14)); // Set font
+        playerNameValueLabel.setFont(new Font("Arial", Font.PLAIN, 14)); // Set font
+        playerNamePanel.add(playerNameLabel);
+        playerNamePanel.add(playerNameValueLabel);
+        mainPanel.add(playerNamePanel, BorderLayout.CENTER);
 
-        // Integer Display Section
-        JPanel integerPanel = new JPanel();
-        integerLabel = new JLabel("0");
-        integerPanel.add(integerLabel);
-        mainPanel.add(integerPanel, BorderLayout.SOUTH);
+        // Text Box Section for Player Score
+        JPanel scorePanel = new JPanel();
+        scoreLabel = new JLabel("Score: ");
+        scoreValueLabel = new JLabel(Integer.toString(testPlayer.getScore()));
+        scoreLabel.setFont(new Font("Arial", Font.BOLD, 14)); // Set font
+        scoreValueLabel.setFont(new Font("Arial", Font.PLAIN, 14)); // Set font
+        scorePanel.add(scoreLabel);
+        scorePanel.add(scoreValueLabel);
+        mainPanel.add(scorePanel, BorderLayout.AFTER_LAST_LINE);
 
         // Add main panel to frame
         add(mainPanel);
@@ -61,7 +69,7 @@ public class GameOverScreen extends JFrame {
         setVisible(true);
     }
 
-    //Temporary main to test game over screen
+    // Temporary main to test game over screen
     public static void main(String[] args) {
         SwingUtilities.invokeLater(() -> new GameOverScreen());
     }
