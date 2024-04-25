@@ -12,7 +12,6 @@ import edu.gonzaga.TetrisGame;
 import edu.gonzaga.Tetris;
 
 public class MainMenuTest{
-    TetrisGame game = new TetrisGame();
     StartMenu menu = new StartMenu();
     public static void main(String[] args) throws IOException, InterruptedException {
         MainMenuTest menu = new MainMenuTest();
@@ -49,6 +48,7 @@ public class MainMenuTest{
                 if (e.getSource() == playButton) {
                     mainMenuFrame.setVisible(false);
                     
+                    /* 
                     try {
 
                         //start a timer to handoff to full game
@@ -58,6 +58,7 @@ public class MainMenuTest{
                         // TODO Auto-generated catch block
                         e1.printStackTrace();
                     }
+                    */
                     System.out.println("button hit!");
                 }
                 
@@ -114,6 +115,8 @@ public class MainMenuTest{
                 if (e.getSource() == playButton) {
                     mainMenuFrame.setVisible(false);
                     //TetrisGame game = new TetrisGame();
+                    
+                    /* 
                     try {
 
                         //start a timer to handoff to full game
@@ -123,6 +126,7 @@ public class MainMenuTest{
                         // TODO Auto-generated catch block
                         e1.printStackTrace();
                     }
+                    */
                     System.out.println("button hit!");
                 }
                 
@@ -154,6 +158,9 @@ public class MainMenuTest{
 
         //attempting to add StartMenu JPanel to menu
         //works and button is clickable but no functionality to start the game just yet
+
+        
+
         mainMenuFrame.add(menu);
         mainMenuFrame.setVisible(true);
     }
