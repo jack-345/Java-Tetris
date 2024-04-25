@@ -11,13 +11,13 @@ import javax.swing.JPanel;
 import edu.gonzaga.TetrisGame;
 import edu.gonzaga.Tetris;
 
-public class MainMenuTest{
+public class MenuBoard{
     StartMenu menu = new StartMenu();
     public static void main(String[] args) throws IOException, InterruptedException {
-        MainMenuTest menu = new MainMenuTest();
+        MenuBoard menu = new MenuBoard();
     }
 
-    public MainMenuTest() throws IOException, InterruptedException{
+    public MenuBoard() throws IOException, InterruptedException{
         JFrame mainMenuFrame = new JFrame("Main Menu");
         createStartMenu();
         mainMenuFrame.setVisible(true);
