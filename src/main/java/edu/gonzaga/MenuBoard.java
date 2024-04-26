@@ -14,7 +14,7 @@ import edu.gonzaga.Tetris;
 public class MenuBoard{
     StartMenu menu = new StartMenu();
     public static void main(String[] args) throws IOException, InterruptedException {
-        MenuBoard menu = new MenuBoard();
+        MenuBoard menuBoard = new MenuBoard();
     }
 
     public MenuBoard() throws IOException, InterruptedException{
