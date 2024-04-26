@@ -14,8 +14,8 @@ public class StartMenu extends JPanel {
     protected Image startIcon;
     public JButton startButton;
     TetrisGame game = new TetrisGame();
-    public StartMenu() {
-
+    public StartMenu(TetrisGame game) {
+        this.game = game;
         try {
             tetrisLogo = ImageIO.read(new File("src/main/java/edu/gonzaga/SourceImg/TetrisLogo.png"));
             backgroundImage = ImageIO.read(new File("src/main/java/edu/gonzaga/SourceImg/backgroundImg.png"));
@@ -38,6 +38,7 @@ public class StartMenu extends JPanel {
             if (e.getSource() == startButton) {
                 try {
                     game.startGame();
+                    setVisible(false);
                 } catch (IOException e1) {
                     // TODO Auto-generated catch block
                     e1.printStackTrace();
@@ -48,8 +49,10 @@ public class StartMenu extends JPanel {
             }
            } 
         });
-
         add(startButton);
+    }
+    public StartMenu(){
+
     }
     public void paintComponent(Graphics g) {
         super.paintComponent(g);

@@ -24,11 +24,7 @@ public class MenuBoard{
     }
 
     void createStartMenu() {
-        JFrame mainMenuFrame = new JFrame("Main Menu");
-        mainMenuFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        mainMenuFrame.setSize(500, 700);
-        mainMenuFrame.add(menu);
-        mainMenuFrame.setVisible(true);
+
     }
 }
 

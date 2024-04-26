@@ -24,10 +24,15 @@ public class TetrisGame {
     private Integer score = 0; // A variable to hold the current score, added to scoreLabel
     private boolean ifPause=false; // A variable to determine if the game is in a paused state or not
     private boolean ifGameEnd=false;
-
+    private StartMenu menu;
     // A constructor method that initializes lineDeleteBuffer
     public TetrisGame() {
         lineDeleteBuffer = new ArrayList<Integer>();
+    }
+    public void startMenu(){
+        menu=new StartMenu(this);
+        adjustApplication();
+        application.add(menu);
     }
 
     //The main method of a game, runs all methods
