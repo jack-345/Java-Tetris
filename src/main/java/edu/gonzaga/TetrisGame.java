@@ -78,7 +78,7 @@ public class TetrisGame {
         backGroundLayer.show(0);
         controller = new KeyboardController(application,this, gridPad);
         controller.listenForKeyPressed();
-
+        application.requestFocusInWindow();
         //Setting up a Timer
         gameTimer = new Timer(500, ev -> {
         });
