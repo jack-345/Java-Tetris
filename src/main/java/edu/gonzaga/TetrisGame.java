@@ -1,7 +1,10 @@
 package edu.gonzaga;
 
+import javax.imageio.ImageIO;
 import javax.swing.*;
 import java.awt.*;
+import java.awt.image.BufferedImage;
+import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Random;
@@ -38,7 +41,7 @@ public class TetrisGame {
     //The main method of a game, runs all methods
     public void startGame() throws IOException, InterruptedException {
         //set a timer, changes the amount of time between updates to the block's position, in milliseconds
-        Integer runTime = 100;
+        Integer runTime = 120;
         //Create a gridPad
         this.gridPad = new GridPad(10, 40);
 
@@ -89,7 +92,6 @@ public class TetrisGame {
                if(!lineDeleteBuffer.isEmpty()) {
                    for (Integer aline : lineDeleteBuffer) {
                     gridPad.clearLine(aline);
-
                 }
                 gridPad.updateGame(new GridEvent(GridEvent.DELETED));
                    System.out.printf("Add score: %d\n",countScore(lineDeleteBuffer.size()));
@@ -101,6 +103,12 @@ public class TetrisGame {
 
         AtomicInteger temp = new AtomicInteger(rand.nextInt(7));
         runTimer = new Timer(1,ev->{
+            if(ifGameEnd){
+                runTimer.stop();
+                gameTimer.stop();
+                breakEffectTimer.stop();
+                endGame();
+            }
             Integer dBlock = rand.nextInt(7);
             Integer wBlock = 0;
             //If the Timer doesn't end, i.e. the squares don't collide, then don't execute the following statement.
@@ -241,6 +249,30 @@ public class TetrisGame {
     }
     public void endGame(){
         ifGameEnd=true;
+        System.out.println("Game OVer");
+        application.dispose();
+        JFrame gameOverFrame = new JFrame("Game Over");
+        gameOverFrame.setLayout(null);
+        gameOverFrame.setVisible(true);
+        JPanel panel=new JPanel(){
+            @Override
+            protected void paintComponent(Graphics g) {
+                super.paintComponent(g);
+                BufferedImage gameOver;
+                try {
+                    gameOver = ImageIO.read(new File("src/main/java/edu/gonzaga/SourceImg/GameOver.png"));
+                } catch (IOException e) {
+                    throw new RuntimeException(e);
+                }
+                g.drawImage(gameOver, 50, 150, 400,300,null);
+            }
+        };
+        gameOverFrame.setLocation(application.getLocation());
+        gameOverFrame.setSize(application.getSize());
+        panel.setSize(application.getSize());
+        panel.setLocation(0,0);
+        panel.setVisible(true);
+        gameOverFrame.add(panel);
     }
 
     public void adjustLayerPanel (int x, int y, GridBlockLayer grid) {
