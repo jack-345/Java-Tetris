@@ -28,6 +28,7 @@ public class TetrisGame {
     private boolean ifPause=false; // A variable to determine if the game is in a paused state or not
     private boolean ifGameEnd=false;
     private StartMenu menu;
+    Integer runTime = 120;
     // A constructor method that initializes lineDeleteBuffer
     public TetrisGame() {
         lineDeleteBuffer = new ArrayList<Integer>();
@@ -40,8 +41,9 @@ public class TetrisGame {
 
     //The main method of a game, runs all methods
     public void startGame() throws IOException, InterruptedException {
-        //set a timer, changes the amount of time between updates to the block's position, in milliseconds
-        Integer runTime = 120;
+        application.remove(menu);
+        application.revalidate();
+        application.repaint();
         //Create a gridPad
         this.gridPad = new GridPad(10, 40);
 
@@ -247,6 +249,15 @@ public class TetrisGame {
         scorePanel.setBorder(BorderFactory.createTitledBorder("Score"));
         scorePanel.add(scoreLabel);
     }
+    public void setRunTimerDelay(int delay){
+        runTime=delay;
+        try {
+            runTimer.setDelay(delay);
+        }catch (NullPointerException e){
+            System.out.println("Timer delay could not be set.");
+        }
+
+    }
     public void endGame(){
         ifGameEnd=true;
         System.out.println("Game OVer");
@@ -264,7 +275,9 @@ public class TetrisGame {
                 } catch (IOException e) {
                     throw new RuntimeException(e);
                 }
-                g.drawImage(gameOver, 50, 150, 400,300,null);
+                g.drawImage(gameOver, 50, 50, 400,350,null);
+                String info=("Player name:      "+"\n"+"Player Score:    "+"\n");
+                g.drawBytes(info.getBytes(),0,info.getBytes().length,50,400);
             }
         };
         gameOverFrame.setLocation(application.getLocation());
