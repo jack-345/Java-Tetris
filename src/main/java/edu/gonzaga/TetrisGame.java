@@ -269,6 +269,7 @@ public class TetrisGame {
         };
         gameOverFrame.setLocation(application.getLocation());
         gameOverFrame.setSize(application.getSize());
+        gameOverFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         panel.setSize(application.getSize());
         panel.setLocation(0,0);
         panel.setVisible(true);
