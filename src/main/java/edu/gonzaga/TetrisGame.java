@@ -28,6 +28,7 @@ public class TetrisGame {
     private boolean ifPause=false; // A variable to determine if the game is in a paused state or not
     private boolean ifGameEnd=false;
     private StartMenu menu;
+    private SplashScreen splash;
     public Player player = new Player();
     Integer runTime = 120;
     // A constructor method that initializes lineDeleteBuffer
@@ -38,6 +39,7 @@ public class TetrisGame {
         menu=new StartMenu(this);
         adjustApplication();
         application.add(menu);
+        menu.showSplash();
     }
 
     //The main method of a game, runs all methods

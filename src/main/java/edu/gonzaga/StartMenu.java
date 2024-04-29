@@ -23,11 +23,18 @@ public class StartMenu extends JPanel {
     protected JLabel nameFieldLabel;
     protected JButton nameSetter;
     protected JTextField nameField;
+    protected Timer screenTimer;
+    protected JLabel splashLabel;
     protected String info = "Tetris Game by [Team Tetris: Jack Ou, Nick DeYoung, Mingze Zhang]";
     TetrisGame game;
 
     public StartMenu(TetrisGame game) {
         this.game = game;
+        splashLabel = new JLabel();
+        splashLabel.setSize(40,40);
+        splashLabel.setLocation(240,500);
+        splashLabel.setForeground(getBackground());
+        splashLabel.setVisible(true);
         try {
             tetrisLogo = ImageIO.read(new File("src/main/java/edu/gonzaga/SourceImg/TetrisLogo.png"));
             backgroundImage = ImageIO.read(new File("src/main/java/edu/gonzaga/SourceImg/backgroundImg.png"));
@@ -41,12 +48,12 @@ public class StartMenu extends JPanel {
         startButton = new JButton("Start Game");
         startButton.setSize(100, 50);
         startButton.setLocation(200, 400);
-        startButton.setVisible(true);
+        startButton.setVisible(false);
 
         settingButton = new JButton("Settings");
         settingButton.setSize(startButton.getSize());
         settingButton.setLocation(200, 450);
-        settingButton.setVisible(true);
+        settingButton.setVisible(false);
 
         startButton.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
@@ -63,7 +70,7 @@ public class StartMenu extends JPanel {
         nameFieldLabel = new JLabel();
         nameFieldLabel.setSize(100,50);
         nameFieldLabel.setLocation(100, 300);
-        nameFieldLabel.setVisible(true);
+        nameFieldLabel.setVisible(false);
         nameFieldLabel.setText("Enter Name: ");
         nameFieldLabel.setForeground(getBackground());
 
@@ -71,14 +78,14 @@ public class StartMenu extends JPanel {
         nameField = new JTextField();
         nameField.setSize(147,17);
         nameField.setLocation(175,317);
-        nameField.setVisible(true);
+        nameField.setVisible(false);
         nameField.setForeground(Color.BLACK);
 
         //nameSetter attributes and initialization
         nameSetter = new JButton();
         nameSetter.setSize(55,17);
         nameSetter.setLocation(325,317);
-        nameSetter.setVisible(true);
+        nameSetter.setVisible(false);
         nameSetter.setText("Set");
         nameSetter.setForeground(Color.BLACK);
         
@@ -94,6 +101,7 @@ public class StartMenu extends JPanel {
         add(nameField);
         add(nameFieldLabel);
         add(nameSetter);
+        add(splashLabel);
     
 
         // Adding difficulty selection as radio buttons in a popup menu
@@ -178,4 +186,28 @@ public class StartMenu extends JPanel {
             game.setRunTimerDelay(70);
         }
     }
+
+    public void showSplash() {
+        final Integer[] counter = {0};
+        screenTimer = new Timer(20, e ->{
+            if (counter[0] < 100) {
+                splashLabel.setText(String.valueOf(counter[0]));
+                counter[0]++;
+                System.out.print(counter[0]);
+                repaint();
+                splashLabel.repaint();
+            }
+            else {
+                screenTimer.stop();
+                nameField.setVisible(true);
+                nameFieldLabel.setVisible(true);
+                nameSetter.setVisible(true);
+                startButton.setVisible(true);
+                settingButton.setVisible(true);
+                splashLabel.setVisible(false);
+            }
+        });
+        screenTimer.start();
+    }
 }
+
