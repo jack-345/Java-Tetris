@@ -28,6 +28,7 @@ public class TetrisGame {
     private boolean ifPause=false; // A variable to determine if the game is in a paused state or not
     private boolean ifGameEnd=false;
     private StartMenu menu;
+    public Player player = new Player();
     Integer runTime = 120;
     // A constructor method that initializes lineDeleteBuffer
     public TetrisGame() {
@@ -276,8 +277,8 @@ public class TetrisGame {
                     throw new RuntimeException(e);
                 }
                 g.drawImage(gameOver, 50, 50, 400,350,null);
-                String info=("Player name:      "+"\n"+"Player Score:    "+"\n");
-                g.drawBytes(info.getBytes(),0,info.getBytes().length,50,400);
+                String info=("       Player name: "+ player.getName() + "\n" + "        Player Score: " + score + "\n");
+                g.drawBytes(info.getBytes(),0,info.getBytes().length,115,400);
             }
         };
         gameOverFrame.setLocation(application.getLocation());

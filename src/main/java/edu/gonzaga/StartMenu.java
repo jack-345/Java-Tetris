@@ -20,6 +20,9 @@ public class StartMenu extends JPanel {
     protected JButton startButton;
     protected JButton settingButton;
     protected JLabel nameLabel;
+    protected JLabel nameFieldLabel;
+    protected JButton nameSetter;
+    protected JTextField nameField;
     protected String info = "Tetris Game by [Team Tetris: Jack Ou, Nick DeYoung, Mingze Zhang]";
     TetrisGame game;
 
@@ -55,6 +58,43 @@ public class StartMenu extends JPanel {
                 }
             }
         });
+
+        //nameLabel attributes and initialization
+        nameFieldLabel = new JLabel();
+        nameFieldLabel.setSize(100,50);
+        nameFieldLabel.setLocation(100, 300);
+        nameFieldLabel.setVisible(true);
+        nameFieldLabel.setText("Enter Name: ");
+        nameFieldLabel.setForeground(getBackground());
+
+        //nameField attributes and initialization
+        nameField = new JTextField();
+        nameField.setSize(147,17);
+        nameField.setLocation(175,317);
+        nameField.setVisible(true);
+        nameField.setForeground(Color.BLACK);
+
+        //nameSetter attributes and initialization
+        nameSetter = new JButton();
+        nameSetter.setSize(55,17);
+        nameSetter.setLocation(325,317);
+        nameSetter.setVisible(true);
+        nameSetter.setText("Set");
+        nameSetter.setForeground(Color.BLACK);
+        
+        nameSetter.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                game.player.setName(nameField.getText());
+                game.application.setTitle("Tetris Player: " + game.player.getName());
+                System.out.println(game.player.getName());
+            }
+        });
+
+        add(startButton);
+        add(nameField);
+        add(nameFieldLabel);
+        add(nameSetter);
+    
 
         // Adding difficulty selection as radio buttons in a popup menu
         JPopupMenu difficultyMenu = new JPopupMenu();
