@@ -12,22 +12,22 @@ import java.util.concurrent.atomic.AtomicInteger;
 
 public class TetrisGame {
     JFrame application = new JFrame(); // creates a new JFrame, houses all displays currently
-    private Timer gameTimer; // creates a new timer to run the main grid, controls timing between block movement actions
+    Timer gameTimer; // creates a new timer to run the main grid, controls timing between block movement actions
     private Timer breakEffectTimer; // creates a new timer to determine how often to check if a line is broken and to perform the lineBroken actions
     // creates a controller, later initialized as a keyboardController, able to check for key input and change the location of the "active" block
     Timer runTimer;
     private Controller controller;
     // an arraylist to hold Y values in our grid to be cleared, is filled by checking how many lines are all "locked" left to right
     private ArrayList<Integer> lineDeleteBuffer; // Holds the coordinates of the lines to be deleted, can be used for scoring
-    private GridPad gridPad; // Initializes a new gridPad, a 2d array of gridBlocks which have different states that can be set
+    GridPad gridPad; // Initializes a new gridPad, a 2d array of gridBlocks which have different states that can be set
     JPanel scorePanel = new JPanel(); // Information panel for score
-    private JLabel scoreLabel; // An information panel that shows the current score
+    JLabel scoreLabel; // An information panel that shows the current score
     NextBlockPanel nextBlockPanel = new NextBlockPanel(); // An information panel that shows the next appearing block
     JLayeredPane layerPanel = new JLayeredPane(); //New layer to place the ghost block into
-    private Integer score = 0; // A variable to hold the current score, added to scoreLabel
+    Integer score = 0; // A variable to hold the current score, added to scoreLabel
     private boolean ifPause=false; // A variable to determine if the game is in a paused state or not
-    private boolean ifGameEnd=false;
-    private StartMenu menu;
+    boolean ifGameEnd=false;
+    StartMenu menu;
     private SplashScreen splash;
     public Player player = new Player();
     Integer runTime = 120;
@@ -263,7 +263,7 @@ public class TetrisGame {
     }
     public void endGame(){
         ifGameEnd=true;
-        System.out.println("Game OVer");
+        System.out.println("Game Over");
         application.dispose();
         JFrame gameOverFrame = new JFrame("Game Over");
         gameOverFrame.setLayout(null);
