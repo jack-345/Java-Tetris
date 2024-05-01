@@ -28,6 +28,10 @@ public class StartMenu extends JPanel {
     protected String info = "Tetris Game by [Team Tetris: Jack Ou, Nick DeYoung, Mingze Zhang]";
     TetrisGame game;
 
+    // Difficulty selection
+    private JPopupMenu difficultyMenu;
+    private ButtonGroup difficultyGroup;
+
     public StartMenu(TetrisGame game) {
         this.game = game;
         splashLabel = new JLabel();
@@ -102,17 +106,19 @@ public class StartMenu extends JPanel {
         add(nameFieldLabel);
         add(nameSetter);
         add(splashLabel);
+        add(settingButton);
+
     
 
         // Adding difficulty selection as radio buttons in a popup menu
-        JPopupMenu difficultyMenu = new JPopupMenu();
+        difficultyMenu = new JPopupMenu();
         JCheckBoxMenuItem easy = new JCheckBoxMenuItem("Easy");
         JCheckBoxMenuItem medium = new JCheckBoxMenuItem("Medium");
         JCheckBoxMenuItem hard = new JCheckBoxMenuItem("Hard");
         medium.setSelected(true); // Set Medium as default
 
         // Group the radio buttons to enforce single selection
-        ButtonGroup difficultyGroup = new ButtonGroup();
+        difficultyGroup = new ButtonGroup();
         difficultyGroup.add(easy);
         difficultyGroup.add(medium);
         difficultyGroup.add(hard);
@@ -126,6 +132,7 @@ public class StartMenu extends JPanel {
         medium.addActionListener(e -> setDifficulty("Medium"));
         hard.addActionListener(e -> setDifficulty("Hard"));
 
+        /*
         startButton.addMouseListener(new MouseAdapter() {
             public void mouseEntered(MouseEvent e) {
                 // Show the menu above the button
@@ -139,6 +146,14 @@ public class StartMenu extends JPanel {
                         difficultyMenu.setVisible(false);
                     }
                 });
+            }
+        });
+        */
+
+        // Add action listener to Settings button to toggle visibility of difficulty selection
+        settingButton.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                difficultyMenu.show(settingButton, 0, settingButton.getHeight());
             }
         });
 
