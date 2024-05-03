@@ -29,6 +29,7 @@ public class KeyboardController extends Controller {
 
     public void moveDown() {
         controlBlock.step();
+        game.score++;
     }
 
     public void rotate(int direction) {
